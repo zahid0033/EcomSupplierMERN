@@ -1,0 +1,10 @@
+.supplier_img{
+    width: 200px;
+}
+.tab-style3 .nav-tabs .nav-item a.active {
+    border-bottom-color: #2CA8FF;
+    color: #2CA8FF;
+}
+.nav-item {
+    cursor: pointer;
+}
