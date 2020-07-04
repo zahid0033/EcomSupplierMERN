@@ -179,7 +179,7 @@ class SupplierSignup extends Component{
                                                     placeholder="Password"
                                                     onChange={this.handleChange}
                                                 />
-                                                {this.validator.message('password', this.state.password, 'required',{ className: 'text-danger' })}
+                                                {this.validator.message('password', this.state.password, 'required|min:8|max:20',{ className: 'text-danger' })}
                                             </div>
                                             <div className="form-group">
                                                 <input
@@ -190,7 +190,7 @@ class SupplierSignup extends Component{
                                                     placeholder="Confirm Password"
                                                     onChange={this.handleChange}
                                                 />
-                                                {this.validator.message('confirmedPassword', this.state.confirmedPassword, 'required',{ className: 'text-danger' })}
+                                                {this.validator.message('confirmedPassword', this.state.confirmedPassword, 'required|min:8|max:20',{ className: 'text-danger' })}
                                             </div>
                                             <div className="form-group">
                                                 <input

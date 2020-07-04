@@ -1,24 +1,42 @@
 import React,{Component} from "react";
+import SimpleReactValidator from "simple-react-validator";
+import {apiUrl} from "../../config/config";
 import axios from 'axios';
 import Breadcrumbs from "../widgets/Breadcrumbs/breadcrumbs";
 import {Link} from "react-router-dom";
-// sweetalert2
-import Swal from 'sweetalert2/dist/sweetalert2.js'
-import 'sweetalert2/src/sweetalert2.scss'
-//validation
-import SimpleReactValidator from 'simple-react-validator';
-import {apiUrl} from "../../config/config";
 
-class ForgetPassword extends Component{
+class ResetPassword extends Component{
     constructor() {
         super();
         this.validator = new SimpleReactValidator({autoForceUpdate: this});
         this.state = {
-            email: "",
-            message : null,
-            sending : false
+            supplierId: null,
+            password: "",
+            confirmPassword: "",
+            message : null
         };
     }
+
+    async componentDidMount() {
+        await axios.get(`${apiUrl}/supplier/resetSupplierPassword/${this.props.match.params.token}`)
+        .then(res => {
+            if (res.data.success && res.data.message === 'password reset link is valid'){
+                this.setState({
+                    supplierId : res.data.supplierId,
+                    message : 'valid'
+                })
+            }
+            else if (res.data.success === false){
+                this.setState({
+                    message : res.data.message
+                })
+            }
+        })
+        .catch(error => {
+            alert(error)
+        })
+    }
+
     handleChange = event => {
         this.validator.showMessages();
         this.setState({
@@ -26,55 +44,13 @@ class ForgetPassword extends Component{
         })
     };
 
-    onSave = async (e) => {
-        e.preventDefault();
-        if (this.validator.allValid()){
-            const dataPost = {
-                email : this.state.email
-            };
-            this.setState({
-                sending : true
-            });
 
-            await axios.post(`${apiUrl}/supplier/forgetPassword`,dataPost)
-                .then(response => {
-                    if (response.data.success === true) {
-                        this.setState({
-                            email: '',
-                            message: response.data.message,
-                            sending : false
-                        })
-                    }
-                    else {
-                        alert("hey " + response.data.message)
-                    }
-                })
-                .catch(error=>{
-                    if (error.response.data.success === false){
-                        this.setState({
-                            sending : false,
-                            message: error.response.data.message
-                        })
-                    }
-                    else if(error.response.data.name === "server error"){
-                        this.setState({
-                            sending : false,
-                            errorMessage : error.response.data.error[0].message
-                        })
-                    }
-                });
-        }
-        else{
-            this.validator.showMessages();
-        }
-
-    };
 
     render() {
         return (
             <>
                 {/* START SECTION BREADCRUMB */}
-                <Breadcrumbs title="Forget Password"/>
+                <Breadcrumbs title="Reset Password"/>
                 {/* END SECTION BREADCRUMB */}
                 <div className="main_content">
                     {/* START LOGIN SECTION */}
@@ -86,8 +62,7 @@ class ForgetPassword extends Component{
                                         <div className="padding_eight_all bg-white">
                                             <div className="heading_s1">
                                                 {this.state.message && <p className="text-danger">{this.state.message}</p>}
-                                                {this.state.sending ? <p className="text-danger">Sending.....</p> : ''}
-                                                <h3>Forget Password</h3>
+                                                <h3>Reset Password</h3>
                                             </div>
                                             <form>
                                                 <div className="form-group">
@@ -95,12 +70,22 @@ class ForgetPassword extends Component{
                                                         type="text"
                                                         required
                                                         className="form-control"
-                                                        name="email"
-                                                        placeholder="Your Email"
-                                                        value={this.state.email}
+                                                        name="password"
+                                                        placeholder="Your Password"
                                                         onChange={this.handleChange}
                                                     />
-                                                    {this.validator.message('email', this.state.email, 'required|email',{ className: 'text-danger' })}
+                                                    {this.validator.message('password', this.state.password, 'required|min:8|max:20',{ className: 'text-danger' })}
+                                                </div>
+                                                <div className="form-group">
+                                                    <input
+                                                        type="text"
+                                                        required
+                                                        className="form-control"
+                                                        name="confirmPassword"
+                                                        placeholder="Confirm Password"
+                                                        onChange={this.handleChange}
+                                                    />
+                                                    {this.validator.message('confirmPassword', this.state.confirmPassword, 'required|min:8|max:20',{ className: 'text-danger' })}
                                                 </div>
 
                                                 <div className="form-group">
@@ -116,11 +101,11 @@ class ForgetPassword extends Component{
                                             </form>
                                             <div className="different_login">
                                                 <span> or</span>
+                                                <Link to={"/forgetPassword"} className="btn btn-fill-out btn-block" >
+                                                    Resend Reset Link
+                                                </Link>
                                             </div>
 
-                                            <div className="form-note text-center">
-                                                Remember Password? <Link to={"/supplier/signin"}>Back to Signin</Link>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -135,4 +120,4 @@ class ForgetPassword extends Component{
     }
 }
 
-export default ForgetPassword
+export default ResetPassword

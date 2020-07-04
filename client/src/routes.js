@@ -48,6 +48,7 @@ import SupplierProduct from "./user/views/supplierProduct";
 import ManageBanners from "./admin/views/ManageBanners";
 import SearchProductOrSupplier from "./user/views/searchProductOrSupplier";
 import ForgetPassword from "./user/views/forgetPassword";
+import ResetPassword from "./user/views/resetPassword";
 
 var dashRoutes = [
   {
@@ -278,6 +279,13 @@ export const userRoutes = [
     name: "Forget Password",
     icon: "pe-7s-bell",
     component: ForgetPassword,
+    layout: "/user"
+  },
+  {
+    path: "/resetPassword/:token",
+    name: "Reset Password",
+    icon: "pe-7s-bell",
+    component: ResetPassword,
     layout: "/user"
   },
   {

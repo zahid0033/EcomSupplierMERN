@@ -83,7 +83,6 @@ module.exports.forgetPassword = async (req,res) => {
                 message : "Email Not found"
             });
         }else{
-            console.log("data",supplier.dataValues);
             const token = jwt.sign({id: supplier.dataValues.id, email:supplier.dataValues.email},config.secret,{expiresIn: 3600000});
             Supplier.update({
                 resetPasswordToken: token,
@@ -106,7 +105,7 @@ module.exports.forgetPassword = async (req,res) => {
                 subject: "Zahid From Alibaba", // Subject line
                 text: 'You are receiving this email because you (or someone else) have requested to reset of the password of your account.\n\n'
                 +'Please Click on the following link,or paste this into your browser to complete the process within one hour of receiving it : \n\n'
-                +`http://localhost:3000/reset/${token} \n\n`
+                +`http://localhost:3000/resetPassword/${token} \n\n`
                 +'If you did not request this, Please ignore this email, Your password will remain unchanged. \n ', // plain text body
                 // html: "<b>Hello world?</b>", // html body
             };
@@ -126,6 +125,40 @@ module.exports.forgetPassword = async (req,res) => {
                     })
                 }
             });
+        }
+    })
+};
+
+module.exports.resetSupplierPassword = async (req,res) => {
+    console.log("resetttttttttttt");
+    const {token} = req.params;
+    console.log("token",token);
+    Supplier.findOne({
+        where : {
+            resetPasswordToken : token,
+        }
+    }).then(supplier => {
+
+        if (supplier === null){
+            res.status(200).json({
+                success : false,
+                message : 'password reset link is invalid or has expired'
+            });
+        }else{
+            const compare = supplier.dataValues.resetPasswordExpires > Date.now();
+            if (compare){
+                res.status(200).send({
+                    success : true,
+                    supplierId : supplier.id,
+                    message : 'password reset link is valid'
+                })
+            }else{
+                res.status(200).json({
+                    success : false,
+                    message : 'password reset link is invalid or has expired'
+                });
+            }
+
         }
     })
 };

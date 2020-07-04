@@ -14,11 +14,12 @@ app.use(function(req, res, next) {
 const {verifyToken,isSuperAdmin,isSupplier}  = require('../../middleware/authJwt');
 
 //controller import
-const {allSupplier,addSupplier,getSupplier,editSupplier,deleteSupplier,signUp,signin,searchSupplier,statusUpdate,forgetPassword,upload} = require ('../../controller/Supplier/supplierController');
+const {allSupplier,addSupplier,getSupplier,editSupplier,deleteSupplier,signUp,signin,searchSupplier,statusUpdate,forgetPassword,resetSupplierPassword,upload} = require ('../../controller/Supplier/supplierController');
 
 
 router.post('/signin', signin );
 router.post('/forgetPassword', forgetPassword );
+router.get('/resetSupplierPassword/:token', resetSupplierPassword );
 router.post('/signup', signUp );
 router.get('/', allSupplier );
 router.post('/add', addSupplier );
