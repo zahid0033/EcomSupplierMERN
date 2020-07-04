@@ -47,6 +47,7 @@ import SupplierEmployee from "./user/views/supplierEmployee";
 import SupplierProduct from "./user/views/supplierProduct";
 import ManageBanners from "./admin/views/ManageBanners";
 import SearchProductOrSupplier from "./user/views/searchProductOrSupplier";
+import ForgetPassword from "./user/views/forgetPassword";
 
 var dashRoutes = [
   {
@@ -270,6 +271,13 @@ export const userRoutes = [
     name: "Product or Supplier Search",
     icon: "pe-7s-bell",
     component: SearchProductOrSupplier,
+    layout: "/user"
+  },
+  {
+    path: "/forgetPassword",
+    name: "Forget Password",
+    icon: "pe-7s-bell",
+    component: ForgetPassword,
     layout: "/user"
   },
   {

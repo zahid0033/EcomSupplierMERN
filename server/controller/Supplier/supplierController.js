@@ -3,6 +3,7 @@ const db = require("../../models");
 const Op = db.Sequelize.Op;
 //file system
 var fs = require('fs');
+var nodemailer = require('nodemailer');
 
 var multer = require('multer');
 const Supplier = db.supplier;
@@ -58,6 +59,74 @@ module.exports.signin = async (req,res) => {
             id: supplier.id,
             name: supplier.name
         })
+    })
+};
+
+module.exports.forgetPassword = async (req,res) => {
+    const {email} = req.body;
+
+    if (email === ''){
+        res.status(400).send({
+            success : false,
+            accessToken : null,
+            message : "Email Required"
+        })
+    }
+    Supplier.findOne({
+        where : {
+            email : email
+        }
+    }).then( supplier => {
+        if (supplier === null){
+            res.status(403).send({
+                success : false,
+                message : "Email Not found"
+            });
+        }else{
+            console.log("data",supplier.dataValues);
+            const token = jwt.sign({id: supplier.dataValues.id, email:supplier.dataValues.email},config.secret,{expiresIn: 3600000});
+            Supplier.update({
+                resetPasswordToken: token,
+                resetPasswordExpires: Date.now()+ 3600000
+            },{
+                where : {id:supplier.dataValues.id}
+            });
+            // create reusable transporter object using the default SMTP transport
+            let transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: `${process.env.MAIL_USER}`, // generated ethereal user
+                    pass: `${process.env.MAIL_PASSWORD}`, // generated ethereal password
+                },
+            });
+
+            const mailOptions = {
+                from: `${process.env.MAIL_USER}`, // sender address
+                to: `${email}`, // list of receivers
+                subject: "Zahid From Alibaba", // Subject line
+                text: 'You are receiving this email because you (or someone else) have requested to reset of the password of your account.\n\n'
+                +'Please Click on the following link,or paste this into your browser to complete the process within one hour of receiving it : \n\n'
+                +`http://localhost:3000/reset/${token} \n\n`
+                +'If you did not request this, Please ignore this email, Your password will remain unchanged. \n ', // plain text body
+                // html: "<b>Hello world?</b>", // html body
+            };
+
+            // send mail with defined transport object
+            transporter.sendMail(mailOptions,function (err,response) {
+                if(err){
+                    res.status(500).json({
+                        name: "server error",
+                        error: err
+                    });
+                    console.log("mail send error",err)
+                }else{
+                    res.status(200).json({
+                        success: true,
+                        message: "Recovery Mail sent. Check your Email",
+                    })
+                }
+            });
+        }
     })
 };
 

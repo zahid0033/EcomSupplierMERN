@@ -28,7 +28,8 @@ class SupplierSignup extends Component{
         country : "",
         terms : false,
         isLoggedIn : false,
-        error : ""
+        error : "",
+        errorMessage : null
     };
 
     componentDidMount = async() => {
@@ -86,7 +87,18 @@ class SupplierSignup extends Component{
                     }
                 })
                 .catch(error=>{
-                    alert("Error 34 "+error.status+ error.code)
+                    if (error.response.data.isAuth === false){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: error.response.data.message
+                        })
+                    }
+                    else if(error.response.data.name === "server error"){
+                        this.setState({
+                            errorMessage : error.response.data.error[0].message
+                        })
+                    }
                 });
         } else {
             this.validator.showMessages();
@@ -111,6 +123,7 @@ class SupplierSignup extends Component{
                                     <div className="padding_eight_all bg-white">
                                         <div className="heading_s1">
                                             <h3>Create an Account</h3>
+                                            {this.state.errorMessage && <p className="text-danger">{this.state.errorMessage}</p>}
                                         </div>
                                         <form>
                                             <div className="form-group">

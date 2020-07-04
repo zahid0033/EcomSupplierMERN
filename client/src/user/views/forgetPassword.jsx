@@ -1,35 +1,25 @@
 import React,{Component} from "react";
+import axios from 'axios';
 import Breadcrumbs from "../widgets/Breadcrumbs/breadcrumbs";
 import {Link} from "react-router-dom";
-import SupplierAuthService from "../supplierService/supplierAuthService";
 // sweetalert2
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 //validation
 import SimpleReactValidator from 'simple-react-validator';
+import SupplierAuthService from "../supplierService/supplierAuthService";
+import {apiUrl} from "../../config/config";
 
-class SupplierSignin extends Component{
+class ForgetPassword extends Component{
     constructor() {
         super();
         this.validator = new SimpleReactValidator({autoForceUpdate: this});
+        this.state = {
+            email: "",
+            message : null,
+            sending : false
+        };
     }
-    state = {
-        email: "",
-        password : "",
-        isLoggedIn : false
-    };
-
-    componentDidMount = async() => {
-        const supplier = SupplierAuthService.getCurrentSupplier();
-
-        if (supplier !== null && supplier.accessToken){
-            await this.setState({
-                isLoggedIn : true
-            });
-        }
-
-    };
-
     handleChange = event => {
         this.validator.showMessages();
         this.setState({
@@ -41,29 +31,38 @@ class SupplierSignin extends Component{
         e.preventDefault();
         if (this.validator.allValid()){
             const dataPost = {
-                email : this.state.email,
-                password : this.state.password
+                email : this.state.email
             };
+            this.setState({
+                sending : true
+            });
 
-            await SupplierAuthService.supplierSignin(dataPost)
+            await axios.post(`${apiUrl}/supplier/forgetPassword`,dataPost)
                 .then(response => {
-                    if (response.success === true) {
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'Your work has been saved',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                        this.props.history.push("/supplier/profile");
-                        window.location.reload();
+                    if (response.data.success === true) {
+                        this.setState({
+                            email: '',
+                            message: response.data.message,
+                            sending : false
+                        })
                     }
                     else {
                         alert("hey " + response.data.message)
                     }
                 })
                 .catch(error=>{
-                    alert("Error 34 "+error.status+ error.code)
+                    if (error.response.data.success === false){
+                        this.setState({
+                            sending : false,
+                            message: error.response.data.message
+                        })
+                    }
+                    else if(error.response.data.name === "server error"){
+                        this.setState({
+                            sending : false,
+                            errorMessage : error.response.data.error[0].message
+                        })
+                    }
                 });
         }
         else{
@@ -73,15 +72,11 @@ class SupplierSignin extends Component{
     };
 
     render() {
-        if (this.state.isLoggedIn){
-            this.props.history.push("/supplier/profile");
-        }
         return (
             <>
                 {/* START SECTION BREADCRUMB */}
-                <Breadcrumbs title="Login"/>
+                <Breadcrumbs title="Forget Password"/>
                 {/* END SECTION BREADCRUMB */}
-                {/* START MAIN CONTENT */}
                 <div className="main_content">
                     {/* START LOGIN SECTION */}
                     <div className="login_register_wrap section">
@@ -91,7 +86,9 @@ class SupplierSignin extends Component{
                                     <div className="login_wrap">
                                         <div className="padding_eight_all bg-white">
                                             <div className="heading_s1">
-                                                <h3>Login</h3>
+                                                {this.state.message && <p className="text-danger">{this.state.message}</p>}
+                                                {this.state.sending ? <p className="text-danger">Sending.....</p> : ''}
+                                                <h3>Forget Password</h3>
                                             </div>
                                             <form>
                                                 <div className="form-group">
@@ -101,36 +98,12 @@ class SupplierSignin extends Component{
                                                         className="form-control"
                                                         name="email"
                                                         placeholder="Your Email"
+                                                        value={this.state.email}
                                                         onChange={this.handleChange}
                                                     />
                                                     {this.validator.message('email', this.state.email, 'required|email',{ className: 'text-danger' })}
                                                 </div>
-                                                <div className="form-group">
-                                                    <input
-                                                        className="form-control"
-                                                        required
-                                                        type="password"
-                                                        name="password"
-                                                        placeholder="Password"
-                                                        onChange={this.handleChange}
-                                                    />
-                                                    {this.validator.message('password', this.state.password, 'required',{ className: 'text-danger' })}
-                                                </div>
-                                                <div className="login_footer form-group">
-                                                    <div className="chek-form">
-                                                        <div className="custome-checkbox">
-                                                            <input
-                                                                className="form-check-input"
-                                                                type="checkbox"
-                                                                name="checkbox"
-                                                                id="exampleCheckbox1"
-                                                                defaultValue
-                                                            />
 
-                                                        </div>
-                                                    </div>
-                                                    <Link to={"/forgetPassword"}>Forgot password?</Link>
-                                                </div>
                                                 <div className="form-group">
                                                     <button
                                                         type="submit"
@@ -138,7 +111,7 @@ class SupplierSignin extends Component{
                                                         name="login"
                                                         onClick={this.onSave}
                                                     >
-                                                        Log in
+                                                        Reset Password
                                                     </button>
                                                 </div>
                                             </form>
@@ -147,7 +120,7 @@ class SupplierSignin extends Component{
                                             </div>
 
                                             <div className="form-note text-center">
-                                                Don't Have an Account? <Link to={"/supplier/signup"}>Sign up now</Link>
+                                                Remember Password? <Link to={"/supplier/signin"}>Back to Signin</Link>
                                             </div>
                                         </div>
                                     </div>
@@ -157,9 +130,10 @@ class SupplierSignin extends Component{
                     </div>
                     {/* END LOGIN SECTION */}
                 </div>
+
             </>
         );
     }
 }
 
-export default SupplierSignin
+export default ForgetPassword

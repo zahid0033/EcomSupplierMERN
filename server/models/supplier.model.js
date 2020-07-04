@@ -8,7 +8,10 @@ module.exports = (sequelize, Sequelize) => {
         name: Sequelize.STRING,
         address: Sequelize.STRING,
         phone: Sequelize.STRING,
-        email: Sequelize.STRING,
+        email: {
+            type : Sequelize.STRING,
+            unique: true
+        },
         password: Sequelize.STRING,
         description: Sequelize.STRING,
         image: Sequelize.STRING,
@@ -16,6 +19,8 @@ module.exports = (sequelize, Sequelize) => {
         businessType: Sequelize.STRING,
         ownership: Sequelize.STRING,
         status: Sequelize.STRING,
+        resetPasswordToken: Sequelize.STRING,
+        resetPasswordExpires: Sequelize.DATE,
         slug: Sequelize.STRING,
     });
     return supplier;
