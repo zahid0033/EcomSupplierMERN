@@ -16,7 +16,8 @@ class SupplierSignin extends Component{
     state = {
         email: "",
         password : "",
-        isLoggedIn : false
+        isLoggedIn : false,
+        message: null
     };
 
     componentDidMount = async() => {
@@ -59,11 +60,15 @@ class SupplierSignin extends Component{
                         window.location.reload();
                     }
                     else {
-                        alert("hey " + response.data.message)
+                        this.setState({
+                            message: response.message
+                        })
                     }
                 })
                 .catch(error=>{
-                    alert("Error 34 "+error.status+ error.code)
+                    this.setState({
+                        message: error.response.message
+                    })
                 });
         }
         else{
@@ -91,6 +96,7 @@ class SupplierSignin extends Component{
                                     <div className="login_wrap">
                                         <div className="padding_eight_all bg-white">
                                             <div className="heading_s1">
+                                                {this.state.message && <p className="alert alert-danger">{this.state.message}</p>}
                                                 <h3>Login</h3>
                                             </div>
                                             <form>

@@ -10,10 +10,11 @@ class ResetPassword extends Component{
         super();
         this.validator = new SimpleReactValidator({autoForceUpdate: this});
         this.state = {
-            supplierId: null,
+            email: "",
             password: "",
             confirmPassword: "",
-            message : null
+            message : null,
+            tokenStatus : false
         };
     }
 
@@ -22,18 +23,22 @@ class ResetPassword extends Component{
         .then(res => {
             if (res.data.success && res.data.message === 'password reset link is valid'){
                 this.setState({
-                    supplierId : res.data.supplierId,
-                    message : 'valid'
-                })
+                    email : res.data.supplierMail,
+                    tokenStatus : true
+                });
             }
             else if (res.data.success === false){
                 this.setState({
-                    message : res.data.message
+                    message : res.data.message,
+                    tokenStatus : false
                 })
             }
         })
         .catch(error => {
-            alert(error)
+            this.setState({
+                message : error.response.data.message,
+                tokenStatus : false
+            })
         })
     }
 
@@ -44,9 +49,29 @@ class ResetPassword extends Component{
         })
     };
 
-
+    updatePassword = (e) => {
+        e.preventDefault();
+        if (this.state.password !== this.state.confirmPassword) {
+            alert("You password doesnt match")
+        }
+        const dataPost = {
+            email: this.state.email,
+            password: this.state.password
+        };
+        axios.post(`${apiUrl}/supplier/updatePasswordViaEmail`,dataPost)
+            .then(res => {
+                if (res.data.success){
+                    this.setState({
+                        password: '',
+                        confirmPassword: '',
+                        message : res.data.message
+                    })
+                }
+            })
+    };
 
     render() {
+        const {supplierId,password,confirmPassword,message,tokenStatus} = this.state;
         return (
             <>
                 {/* START SECTION BREADCRUMB */}
@@ -61,46 +86,50 @@ class ResetPassword extends Component{
                                     <div className="login_wrap">
                                         <div className="padding_eight_all bg-white">
                                             <div className="heading_s1">
-                                                {this.state.message && <p className="text-danger">{this.state.message}</p>}
+                                                {this.state.message && <p className="alert alert-primary">{this.state.message}</p>}
                                                 <h3>Reset Password</h3>
                                             </div>
-                                            <form>
-                                                <div className="form-group">
-                                                    <input
-                                                        type="text"
-                                                        required
-                                                        className="form-control"
-                                                        name="password"
-                                                        placeholder="Your Password"
-                                                        onChange={this.handleChange}
-                                                    />
-                                                    {this.validator.message('password', this.state.password, 'required|min:8|max:20',{ className: 'text-danger' })}
-                                                </div>
-                                                <div className="form-group">
-                                                    <input
-                                                        type="text"
-                                                        required
-                                                        className="form-control"
-                                                        name="confirmPassword"
-                                                        placeholder="Confirm Password"
-                                                        onChange={this.handleChange}
-                                                    />
-                                                    {this.validator.message('confirmPassword', this.state.confirmPassword, 'required|min:8|max:20',{ className: 'text-danger' })}
-                                                </div>
+                                            {tokenStatus &&
+                                                <form>
+                                                    <div className="form-group">
+                                                        <input
+                                                            type="password"
+                                                            required
+                                                            className="form-control"
+                                                            name="password"
+                                                            placeholder="Your Password"
+                                                            value={password}
+                                                            onChange={this.handleChange}
+                                                        />
+                                                        {this.validator.message('password', this.state.password, 'required|min:8|max:20',{ className: 'text-danger' })}
+                                                    </div>
+                                                    <div className="form-group">
+                                                        <input
+                                                            type="password"
+                                                            required
+                                                            className="form-control"
+                                                            name="confirmPassword"
+                                                            placeholder="Confirm Password"
+                                                            value={confirmPassword}
+                                                            onChange={this.handleChange}
+                                                        />
+                                                        {this.validator.message('confirmPassword', this.state.confirmPassword, 'required|min:8|max:20',{ className: 'text-danger' })}
+                                                    </div>
 
-                                                <div className="form-group">
-                                                    <button
-                                                        type="submit"
-                                                        className="btn btn-fill-out btn-block"
-                                                        name="login"
-                                                        onClick={this.onSave}
-                                                    >
-                                                        Reset Password
-                                                    </button>
-                                                </div>
-                                            </form>
+                                                    <div className="form-group">
+                                                        <button
+                                                            type="submit"
+                                                            className="btn btn-fill-out btn-block"
+                                                            onClick={this.updatePassword}
+                                                        >
+                                                            Reset Password
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            }
+
                                             <div className="different_login">
-                                                <span> or</span>
+                                                {tokenStatus && <span> or</span>  }
                                                 <Link to={"/forgetPassword"} className="btn btn-fill-out btn-block" >
                                                     Resend Reset Link
                                                 </Link>

@@ -123,7 +123,7 @@ class SupplierSignup extends Component{
                                     <div className="padding_eight_all bg-white">
                                         <div className="heading_s1">
                                             <h3>Create an Account</h3>
-                                            {this.state.errorMessage && <p className="text-danger">{this.state.errorMessage}</p>}
+                                            {this.state.errorMessage && <p className="alert alert-danger">{this.state.errorMessage}</p>}
                                         </div>
                                         <form>
                                             <div className="form-group">
@@ -157,7 +157,7 @@ class SupplierSignup extends Component{
                                                     placeholder="Enter Your Phone"
                                                     onChange={this.handleChange}
                                                 />
-                                                {this.validator.message('phone', this.state.phone, 'required|phone', { className: 'text-danger' })}
+                                                {this.validator.message('phone', this.state.phone, 'required|phone|min:11|max:11', { className: 'text-danger' })}
                                             </div>
                                             <div className="form-group">
                                                 <input

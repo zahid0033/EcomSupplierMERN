@@ -85,8 +85,8 @@ class ForgetPassword extends Component{
                                     <div className="login_wrap">
                                         <div className="padding_eight_all bg-white">
                                             <div className="heading_s1">
-                                                {this.state.message && <p className="text-danger">{this.state.message}</p>}
-                                                {this.state.sending ? <p className="text-danger">Sending.....</p> : ''}
+                                                {this.state.message && <p className="alert alert-primary">{this.state.message}</p>}
+                                                {this.state.sending ? <p className="alert alert-success">Sending Please Wait.....</p> : ''}
                                                 <h3>Forget Password</h3>
                                             </div>
                                             <form>

@@ -41,11 +41,16 @@ module.exports.signin = async (req,res) => {
     })
     .then(supplier => {
         if (!supplier){
-            return res.status(200).send("Supplier doesnt found");
+            return res.send({
+                success: false,
+                accessToken: null,
+                message: "User Doesnt Found"
+            })
         }
         const isPasswordValid = bcrypt.compareSync(password, supplier.password);
         if (!isPasswordValid){
-            res.status(401).send({
+            res.send({
+                success: false,
                 accessToken: null,
                 message: "invalid password"
             })
@@ -83,12 +88,12 @@ module.exports.forgetPassword = async (req,res) => {
                 message : "Email Not found"
             });
         }else{
-            const token = jwt.sign({id: supplier.dataValues.id, email:supplier.dataValues.email},config.secret,{expiresIn: 3600000});
+            const token = jwt.sign({id: supplier.id, email:supplier.email},config.secret,{expiresIn: 3600000});
             Supplier.update({
                 resetPasswordToken: token,
                 resetPasswordExpires: Date.now()+ 3600000
             },{
-                where : {id:supplier.dataValues.id}
+                where : {id: supplier.id}
             });
             // create reusable transporter object using the default SMTP transport
             let transporter = nodemailer.createTransport({
@@ -106,7 +111,7 @@ module.exports.forgetPassword = async (req,res) => {
                 text: 'You are receiving this email because you (or someone else) have requested to reset of the password of your account.\n\n'
                 +'Please Click on the following link,or paste this into your browser to complete the process within one hour of receiving it : \n\n'
                 +`http://localhost:3000/resetPassword/${token} \n\n`
-                +'If you did not request this, Please ignore this email, Your password will remain unchanged. \n ', // plain text body
+                +'If you did not request this, Please ignore this email, Your password will remain unchanged. \n', // plain text body
                 // html: "<b>Hello world?</b>", // html body
             };
 
@@ -130,9 +135,7 @@ module.exports.forgetPassword = async (req,res) => {
 };
 
 module.exports.resetSupplierPassword = async (req,res) => {
-    console.log("resetttttttttttt");
     const {token} = req.params;
-    console.log("token",token);
     Supplier.findOne({
         where : {
             resetPasswordToken : token,
@@ -145,11 +148,11 @@ module.exports.resetSupplierPassword = async (req,res) => {
                 message : 'password reset link is invalid or has expired'
             });
         }else{
-            const compare = supplier.dataValues.resetPasswordExpires > Date.now();
+            const compare = supplier.resetPasswordExpires > Date.now();
             if (compare){
                 res.status(200).send({
                     success : true,
-                    supplierId : supplier.id,
+                    supplierMail : supplier.email,
                     message : 'password reset link is valid'
                 })
             }else{
@@ -161,6 +164,42 @@ module.exports.resetSupplierPassword = async (req,res) => {
 
         }
     })
+};
+
+module.exports.updatePasswordViaEmail = async (req,res) => {
+    const {email,password} = req.body;
+    Supplier.findOne({
+        where : {
+            email : email
+        }
+    })
+        .then(supplier => {
+            if (supplier !== null){
+                Supplier.update({
+                    password : bcrypt.hashSync(password, 10),
+                    resetPasswordToken: null,
+                    resetPasswordExpires: null
+                },{
+                    where : {email: email}
+                }).then(data => {
+                    res.status(200).json({
+                        success: true,
+                        message: "Your password has been reset successfully. Please try logging in again",
+                    })
+                }).catch(error => {
+                    res.status(500).json({
+                        name: "server error",
+                        error: error.errors
+                    });
+                })
+            }
+        })
+        .catch(error => {
+            res.status(500).json({
+                name: "server error",
+                error: error.errors
+            });
+        })
 };
 
 module.exports.signUp = async (req,res) => {
