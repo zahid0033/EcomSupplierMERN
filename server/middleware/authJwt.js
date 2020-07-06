@@ -9,7 +9,6 @@ const config = require('../config/auth.config');
 
 
 module.exports.verifyToken = (req,res,next) => {
-    console.log(req.headers);
     let token = req.headers['x-access-token'];
     if (!token){
         res.status(403).send({

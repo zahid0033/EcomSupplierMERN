@@ -167,48 +167,52 @@ class Header extends React.Component {
             navbar
             className="justify-content-end"
           >
-            <form>
-              <InputGroup className="no-border">
-                <Input placeholder="Search..." />
-                <InputGroupAddon addonType="append">
-                  <InputGroupText>
-                    <i className="now-ui-icons ui-1_zoom-bold" />
-                  </InputGroupText>
-                </InputGroupAddon>
-              </InputGroup>
-            </form>
+            {/*<form>*/}
+            {/*  <InputGroup className="no-border">*/}
+            {/*    <Input placeholder="Search..." />*/}
+            {/*    <InputGroupAddon addonType="append">*/}
+            {/*      <InputGroupText>*/}
+            {/*        <i className="now-ui-icons ui-1_zoom-bold" />*/}
+            {/*      </InputGroupText>*/}
+            {/*    </InputGroupAddon>*/}
+            {/*  </InputGroup>*/}
+            {/*</form>*/}
             <Nav navbar>
-              <NavItem>
-                <Link to="#pablo" className="nav-link">
-                  <i className="now-ui-icons media-2_sound-wave" />
-                  <p>
-                    <span className="d-lg-none d-md-block">Stats</span>
-                  </p>
-                </Link>
-              </NavItem>
+              {/*<NavItem>*/}
+              {/*  <Link to="#pablo" className="nav-link">*/}
+              {/*    <i className="now-ui-icons media-2_sound-wave" />*/}
+              {/*    <p>*/}
+              {/*      <span className="d-lg-none d-md-block">Stats</span>*/}
+              {/*    </p>*/}
+              {/*  </Link>*/}
+              {/*</NavItem>*/}
               <Dropdown
                 nav
                 isOpen={this.state.dropdownOpen}
                 toggle={e => this.dropdownToggle(e)}
               >
                 <DropdownToggle caret nav>
-                  <i className="now-ui-icons location_world" />
+                  <i className="now-ui-icons users_single-02" />
                   <p>
                     <span className="d-lg-none d-md-block">Some Actions</span>
                   </p>
                 </DropdownToggle>
                 <DropdownMenu right>
+                  <Link to={`/admin/profile`}>
+                    <DropdownItem tag="a">Profile</DropdownItem>
+                  </Link>
+                  <hr/>
                   <DropdownItem tag="a" onClick={this.logOut}>Logout</DropdownItem>
                 </DropdownMenu>
               </Dropdown>
-              <NavItem>
-                <Link to="#pablo" className="nav-link">
-                  <i className="now-ui-icons users_single-02" />
-                  <p>
-                    <span className="d-lg-none d-md-block">Account</span>
-                  </p>
-                </Link>
-              </NavItem>
+              {/*<NavItem>*/}
+              {/*  <Link to="#pablo" className="nav-link">*/}
+              {/*    <i className="now-ui-icons users_single-02" />*/}
+              {/*    <p>*/}
+              {/*      <span className="d-lg-none d-md-block">Account</span>*/}
+              {/*    </p>*/}
+              {/*  </Link>*/}
+              {/*</NavItem>*/}
             </Nav>
           </Collapse>
         </Container>

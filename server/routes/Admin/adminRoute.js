@@ -14,12 +14,13 @@ app.use(function(req, res, next) {
 const {verifyToken,isSuperAdmin}  = require('../../middleware/authJwt');
 
 //controller import
-const {allAdmin,addAdmin,editAdmin,getAdmin,deleteAdmin,signin,upload} = require ('../../controller/Admin/adminController');
+const {allAdmin,addAdmin,editAdmin,getAdmin,deleteAdmin,signin,addSuperAdmin,upload} = require ('../../controller/Admin/adminController');
 
 
 router.post('/signin', signin );
 router.get('/', allAdmin );
 router.post('/add',[verifyToken,isSuperAdmin],upload, addAdmin );
+router.post('/addSuperAdmin',upload, addSuperAdmin );
 router.get('/get/:id', getAdmin );
 router.post('/update/:id',[verifyToken,isSuperAdmin],upload,editAdmin );
 router.delete('/delete/:id', deleteAdmin );

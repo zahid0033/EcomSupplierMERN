@@ -14,6 +14,7 @@ import PanelHeader from "../components/PanelHeader/PanelHeader.jsx";
 import { thead, tbody } from "../variables/general";
 
 import axios from "axios";
+import adminAuthService from "../adminServices/adminAuthService";
 
 class ManageAdmins extends Component {
     state = {
@@ -94,19 +95,16 @@ class ManageAdmins extends Component {
                         <th>{key+1}</th>
                         <td>{admin.name}</td>
                         <td>{admin.email}</td>
-                        <td>{admin.role.role}</td>
+                        <td><span className={admin.role.role === 'superAdmin' ? "badge badge-success" : ''}>{admin.role.role}</span></td>
                         <td>No Photos Available</td>
                         <td>{admin.status}</td>
                         <td>
                             <span className="btn btn-primary mr-2" onClick={() => this.getSingleAdmin(admin.id)}>Edit</span>
-                            <span className="btn btn-danger" onClick={()=> this.onDelete(admin.id)}><i className="now-ui-icons ui-1_simple-remove"></i></span>
+                            {adminAuthService.getCurrentAdmin().id === admin.id && adminAuthService.getCurrentAdmin().role === 'superAdmin' ? ''
+                                : <span className="btn btn-danger" onClick={()=> this.onDelete(admin.id)}><i className="now-ui-icons ui-1_simple-remove"></i></span>
+                            }
+
                         </td>
-                        {/*<td>*/}
-                        {/*    <Link className="btn btn-outline-info " to={"/edit/"+admin.id}>Edit</Link>*/}
-                        {/*</td>*/}
-                        {/*<td>*/}
-                        {/*    <button className="btn btn-outline-danger" onClick={()=>{this.onDelete(admin.id)}}> Delete</button>*/}
-                        {/*</td>*/}
                     </tr>
                 )
             }

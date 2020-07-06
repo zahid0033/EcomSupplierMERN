@@ -193,26 +193,21 @@ class SupplierSignup extends Component{
                                                 {this.validator.message('confirmedPassword', this.state.confirmedPassword, 'required|min:8|max:20',{ className: 'text-danger' })}
                                             </div>
                                             <div className="form-group">
-                                                <input
-                                                    type="text"
-                                                    required
-                                                    className="form-control"
-                                                    name="businessType"
-                                                    placeholder="Enter Your Business Type"
-                                                    onChange={this.handleChange}
-                                                />
-                                                {this.validator.message('businessType', this.state.businessType, 'required',{ className: 'text-danger' })}
+                                                <label >Business Type</label>
+                                                <select className="form-control" name="businessType" onChange={this.handleChange}>
+                                                    <option>Choose one</option>
+                                                    <option value="Manufacturing">Manufacturing</option>
+                                                    <option value="Trading">Trading</option>
+                                                    <option value="Whole sale">Whole sale</option>
+                                                </select>
                                             </div>
                                             <div className="form-group">
-                                                <input
-                                                    type="text"
-                                                    required
-                                                    className="form-control"
-                                                    name="ownership"
-                                                    placeholder="Enter Your ownerShip"
-                                                    onChange={this.handleChange}
-                                                />
-                                                {this.validator.message('ownership', this.state.ownership, 'required',{ className: 'text-danger' })}
+                                                <label >Ownership</label>
+                                                <select className="form-control" name="ownership" onChange={this.handleChange}>
+                                                    <option>Choose one</option>
+                                                    <option value="Private Limited">Private Limited</option>
+                                                    <option value="Public Limited">Public Limited</option>
+                                                </select>
                                             </div>
                                             <div className="form-group">
                                                 <input

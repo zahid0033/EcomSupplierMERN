@@ -32,6 +32,8 @@ import AllSuppliers from "./admin/views/AllSuppliers";
 import ViewSupplierDetails from "./admin/views/ViewSupplierDetails";
 import AdminLogin from "./admin/views/AdminLogin";
 import ManageCategories from "./admin/views/ManageCategories";
+import CreateSuperAdmin from "./admin/views/CreateSuperAdmin";
+import AdminProfile from "./admin/views/AdminProfile";
 // user
 import Home from "./user/views/home";
 import About from "./user/views/about";
@@ -85,7 +87,7 @@ var dashRoutes = [
     component: Notifications,
     layout: "/admin",
     permission : ["superAdmin","Moderator"],
-    sidebar: true
+    sidebar: false
   },
   {
     path: "/user-page",
@@ -176,6 +178,24 @@ var dashRoutes = [
     layout: "/admin",
     permission : ["All"],
     sidebar: true
+  },
+  {
+    path: "/createSuperAdmin",
+    name: "Create Super Admin",
+    icon: "design-2_ruler-pencil",
+    component: CreateSuperAdmin,
+    layout: "/admin",
+    permission : ["All"],
+    sidebar: true
+  },
+  {
+    path: "/profile",
+    name: "Admin Profile",
+    icon: "design-2_ruler-pencil",
+    component: authAdminComponent(AdminProfile),
+    layout: "/admin",
+    permission : ["superAdmin","Moderator"],
+    sidebar: false
   },
   {
     pro: true,
