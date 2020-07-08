@@ -11,6 +11,7 @@ const Product = require("./product.model");
 const Supplier = require("./supplier.model");
 const Employee = require("./employee.model");
 const Banner = require("./banners.model");
+const Advertise = require("./advertise.model");
 
 const sequelize = new Sequelize(
     config.DB,
@@ -45,6 +46,7 @@ db.product = Product(sequelize, Sequelize);
 db.supplier = Supplier(sequelize, Sequelize);
 db.employee = Employee(sequelize, Sequelize);
 db.banner = Banner(sequelize, Sequelize);
+db.advertise = Advertise(sequelize, Sequelize);
 
 db.admin.belongsTo(db.role);
 db.mainCategory.hasMany(db.subCategory,{ foreignKey: 'mainCategoryId' }, {onDelete: 'CASCADE'});

@@ -15,6 +15,8 @@ module.exports = (sequelize, Sequelize) => {
         price: Sequelize.DOUBLE,
         model: Sequelize.STRING,
         status: Sequelize.STRING,
+        featured: Sequelize.STRING,
+        exclusive: Sequelize.STRING,
         subCategoryId : {
             type: Sequelize.INTEGER,
             reference:{

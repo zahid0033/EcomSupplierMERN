@@ -53,6 +53,7 @@ const productRouter = require('./routes/Product/productRoute');
 const supplierRouter = require('./routes/Supplier/supplierRoute');
 const employeeRouter = require('./routes/Employee/employeeRoute');
 const bannerRouter = require('./routes/Banner/bannerRoute');
+const advertiseRouter = require('./routes/Advertise/advertiseRoute');
 
 
 //root
@@ -75,6 +76,7 @@ app.use('/api/product', productRouter);
 app.use('/api/supplier', supplierRouter);
 app.use('/api/employee', employeeRouter);
 app.use('/api/banner', bannerRouter);
+app.use('/api/advertise', advertiseRouter);
 
 //not found url
 app.get('*',(req,res)=>{

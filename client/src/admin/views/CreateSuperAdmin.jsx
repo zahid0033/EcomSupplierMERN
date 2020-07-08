@@ -140,7 +140,7 @@ class CreateSuperAdmin extends Component{
                         <Col md="6">
                             <Card>
                                 <CardHeader>
-                                    <h5 className="title">Login</h5>
+                                    <h5 className="title">SignUp</h5>
                                     {this.state.errorMessage && <p className="text-danger">{this.state.errorMessage}</p>}
                                 </CardHeader>
                                 <CardBody>
