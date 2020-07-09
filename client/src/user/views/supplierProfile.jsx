@@ -58,7 +58,7 @@ class SupplierProfile extends Component{
 
             return (<img className="circle_image" src={`${frontendUrl}/images/supplier/${path}`} alt=""/>)
         }else{
-            return (<img src={img1} alt=""/>)
+            return (<img className="circle_image" src={img1} alt=""/>)
         }
     };
 

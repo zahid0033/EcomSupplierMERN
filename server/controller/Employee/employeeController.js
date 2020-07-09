@@ -1,6 +1,7 @@
 //db import
 const db = require("../../models");
 var multer = require('multer');
+var path = require('path');
 //file system
 var fs = require('fs');
 const Employee = db.employee;
@@ -12,7 +13,8 @@ var storage = multer.diskStorage({
     },
 
     filename: function (req, file, cb) {
-        cb(null, Date.now() + '-' +file.originalname.toLowerCase().split(' ').join('-') )
+        // cb(null, Date.now() + '-' +file.originalname.toLowerCase().split(' ').join('-') )
+        cb(null, Date.now()+path.extname(file.originalname) )
         // cb(null, Date.now()+'1' )
     }
 });

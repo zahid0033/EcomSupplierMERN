@@ -60,6 +60,8 @@ module.exports.addProduct = async (req,res) => {
             model : model,
             subCategoryId : subCategoryId,
             supplierId : supplierId,
+            featured : "no",
+            exclusive : "no",
             status : "active"
         }).then((data) => {
             res.status(200).json({
@@ -84,6 +86,8 @@ module.exports.addProduct = async (req,res) => {
             model : model,
             subCategoryId : subCategoryId,
             supplierId : supplierId,
+            featured : "no",
+            exclusive : "no",
             status : "active"
         }).then((data) => {
             res.status(200).json({
@@ -213,6 +217,44 @@ module.exports.deleteProduct = async (req,res) => {
         });
     })
 
+};
+
+module.exports.exclusiveUpdate = async (req,res) => {
+    await Product.update(
+        {
+            exclusive : req.body.status
+        },
+        {
+            where : {id: req.body.id}
+        }
+    ).then(data => {
+        res.status(200).json({
+            success: true,
+            message: "Product Status Updated",
+            output: data
+        })
+    }).catch(error => {
+        res.status(500).send(error);
+    })
+};
+
+module.exports.featuredUpdate = async (req,res) => {
+    await Product.update(
+        {
+            featured : req.body.status
+        },
+        {
+            where : {id: req.body.id}
+        }
+    ).then(data => {
+        res.status(200).json({
+            success: true,
+            message: "Product Status Updated",
+            output: data
+        })
+    }).catch(error => {
+        res.status(500).send(error);
+    })
 };
 
 module.exports.mainCategoryProducts = async (req,res) => {

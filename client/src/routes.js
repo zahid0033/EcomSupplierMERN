@@ -32,8 +32,11 @@ import AllSuppliers from "./admin/views/AllSuppliers";
 import ViewSupplierDetails from "./admin/views/ViewSupplierDetails";
 import AdminLogin from "./admin/views/AdminLogin";
 import ManageCategories from "./admin/views/ManageCategories";
+import ManageBanners from "./admin/views/ManageBanners";
 import CreateSuperAdmin from "./admin/views/CreateSuperAdmin";
 import AdminProfile from "./admin/views/AdminProfile";
+import ManageProducts from "./admin/views/ManageProducts";
+import ViewProductsDetails from "./admin/views/ViewProductsDetails";
 // user
 import Home from "./user/views/home";
 import About from "./user/views/about";
@@ -47,7 +50,6 @@ import SupplierProfile from "./user/views/supplierProfile";
 import SupplierSignin from "./user/views/supplierSignin";
 import SupplierEmployee from "./user/views/supplierEmployee";
 import SupplierProduct from "./user/views/supplierProduct";
-import ManageBanners from "./admin/views/ManageBanners";
 import SearchProductOrSupplier from "./user/views/searchProductOrSupplier";
 import ForgetPassword from "./user/views/forgetPassword";
 import ResetPassword from "./user/views/resetPassword";
@@ -142,6 +144,24 @@ var dashRoutes = [
     layout: "/admin",
     permission : ["superAdmin","Moderator"],
     sidebar: true
+  },
+  {
+    path: "/manageProducts",
+    name: "All Products",
+    icon: "design-2_ruler-pencil",
+    component: authAdminComponent(ManageProducts),
+    layout: "/admin",
+    permission : ["superAdmin","Moderator"],
+    sidebar: true
+  },
+  {
+    path: "/viewProductDetails/:productId",
+    name: "Product Details",
+    icon: "design-2_ruler-pencil",
+    component: authAdminComponent(ViewProductsDetails),
+    layout: "/admin",
+    permission : ["superAdmin","Moderator"],
+    sidebar: false
   },
   {
     path: "/viewSupplierDetails/:supplierId",

@@ -56,7 +56,7 @@ class ViewSupplierDetails extends Component {
     }
 
     loadSupplier = async (id) => {
-        await axios.get(`http://localhost:8000/supplier/get/${id}`)
+        await axios.get(`${apiUrl}/supplier/get/${id}`)
             .then(response => {
                 if (response.data.success){
                     // console.log(response.data.output)
@@ -125,7 +125,19 @@ class ViewSupplierDetails extends Component {
     render() {
         if (this.state.supplier.length === 0){
             return (
-                <h1>Loading</h1>
+                <>
+                    <PanelHeader size="sm" />
+                    <div className="content">
+                        <Row>
+                            <Col md="12">
+                                <Card>
+                                    <h1>Loading</h1>
+                                </Card>
+                            </Col>
+                        </Row>
+                    </div>
+                </>
+
             )
         }else{
             const {supplier} = this.state;

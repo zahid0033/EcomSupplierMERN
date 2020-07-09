@@ -199,10 +199,10 @@ class Header extends React.Component {
                 </DropdownToggle>
                 <DropdownMenu right>
                   <Link to={`/admin/profile`}>
-                    <DropdownItem tag="a">Profile</DropdownItem>
+                    <DropdownItem tag="p" style={{color:'black'}}>Profile</DropdownItem>
                   </Link>
                   <hr/>
-                  <DropdownItem tag="a" onClick={this.logOut}>Logout</DropdownItem>
+                  <DropdownItem tag="a" onClick={this.logOut} style={{color:'black'}}>Logout</DropdownItem>
                 </DropdownMenu>
               </Dropdown>
               {/*<NavItem>*/}

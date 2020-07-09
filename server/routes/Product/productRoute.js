@@ -14,7 +14,7 @@ app.use(function(req, res, next) {
 const {verifyToken,isAdmin}  = require('../../middleware/authJwt');
 
 //controller import
-const {allProduct,addProduct,getProduct,editProduct,deleteProduct,uploadFile,mainCategoryProducts,subCategoryProducts,upload} = require ('../../controller/Product/productController');
+const {allProduct,addProduct,getProduct,editProduct,deleteProduct,uploadFile,mainCategoryProducts,subCategoryProducts,exclusiveUpdate,featuredUpdate,upload} = require ('../../controller/Product/productController');
 
 
 router.get('/', allProduct );
@@ -22,7 +22,8 @@ router.post('/add',upload, addProduct );
 router.get('/get/:id', getProduct );
 router.post('/update/:id',upload, editProduct );
 router.delete('/delete/:id', deleteProduct );
-
+router.post('/exclusiveUpdate', exclusiveUpdate );
+router.post('/featuredUpdate', featuredUpdate );
 router.get('/mainCategoryProducts/get',mainCategoryProducts);
 router.get('/subCategoryProducts/get',subCategoryProducts);
 
