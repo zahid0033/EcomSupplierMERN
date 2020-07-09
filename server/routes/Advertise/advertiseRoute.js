@@ -16,7 +16,7 @@ const {verifyToken,isAdmin}  = require('../../middleware/authJwt');
 //controller import
 const {allAdvertise,addAdvertise,getAdvertise,editAdvertise,deleteAdvertise,upload} = require ('../../controller/Advertise/advertiseController');
 
-
+console.log("advertise route");
 router.get('/', allAdvertise );
 router.post('/add',upload, addAdvertise );
 router.get('/get/:id', getAdvertise );

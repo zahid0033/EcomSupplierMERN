@@ -37,6 +37,7 @@ import CreateSuperAdmin from "./admin/views/CreateSuperAdmin";
 import AdminProfile from "./admin/views/AdminProfile";
 import ManageProducts from "./admin/views/ManageProducts";
 import ViewProductsDetails from "./admin/views/ViewProductsDetails";
+import ManageAdvertise from "./admin/views/ManageAdvertise";
 // user
 import Home from "./user/views/home";
 import About from "./user/views/about";
@@ -130,7 +131,7 @@ var dashRoutes = [
   {
     path: "/manageAdmins",
     name: "Manage Admins",
-    icon: "design-2_ruler-pencil",
+    icon: "clothes_tie-bow",
     component: authAdminComponent(ManageAdmins),
     layout: "/admin",
     permission : ["superAdmin","Moderator"],
@@ -139,7 +140,7 @@ var dashRoutes = [
   {
     path: "/allSuppliers",
     name: "All Suppliers",
-    icon: "design-2_ruler-pencil",
+    icon: "business_bank",
     component: authAdminComponent(AllSuppliers),
     layout: "/admin",
     permission : ["superAdmin","Moderator"],
@@ -148,7 +149,7 @@ var dashRoutes = [
   {
     path: "/manageProducts",
     name: "All Products",
-    icon: "design-2_ruler-pencil",
+    icon: "design_app",
     component: authAdminComponent(ManageProducts),
     layout: "/admin",
     permission : ["superAdmin","Moderator"],
@@ -175,7 +176,7 @@ var dashRoutes = [
   {
     path: "/manageBanners",
     name: "Manage Banners",
-    icon: "design-2_ruler-pencil",
+    icon: "location_map-big",
     component: authAdminComponent(ManageBanners),
     layout: "/admin",
     permission : ["superAdmin","Moderator"],
@@ -184,10 +185,19 @@ var dashRoutes = [
   {
     path: "/manageCategories",
     name: "Manage Categories",
-    icon: "design-2_ruler-pencil",
+    icon: "design_bullet-list-67",
     component: authAdminComponent(ManageCategories),
     layout: "/admin",
     permission : ["superAdmin"],
+    sidebar: true
+  },
+  {
+    path: "/manageAdvertise",
+    name: "Manage Advertise",
+    icon: "files_single-copy-04",
+    component: authAdminComponent(ManageAdvertise),
+    layout: "/admin",
+    permission : ["superAdmin","Moderator"],
     sidebar: true
   },
   {

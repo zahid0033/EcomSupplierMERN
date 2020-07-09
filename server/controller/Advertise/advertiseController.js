@@ -39,13 +39,15 @@ module.exports.allAdvertise = async (req,res) => {
 };
 
 module.exports.addAdvertise = async (req,res) => {
-
+console.log("add advertise");
     // res.send({req: req.file});
     const path = req.file && req.file.path;
 
     const {position,image} = req.body;
 
     if (path){
+
+        console.log("add advertise path ");
         await Advertise.create({
             position : position,
             image : req.file.path
