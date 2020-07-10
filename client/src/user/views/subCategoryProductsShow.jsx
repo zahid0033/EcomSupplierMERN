@@ -8,6 +8,7 @@ class SubCategoryProductsShow extends Component {
     // console.log(props.match.params);
     state = {
         products: [],
+        filteredProducts : []
     };
 
     componentWillMount() {
@@ -28,7 +29,13 @@ class SubCategoryProductsShow extends Component {
                 });
             }).catch(error => {
                 alert(error)
-            })
+            });
+        let filteredProducts = this.state.products.filter(product => {
+            return product.supplier.status !== "Non-Verified"
+        });
+        this.setState({
+            filteredProducts : filteredProducts
+        });
 
     };
 

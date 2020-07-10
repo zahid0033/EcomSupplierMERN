@@ -8,6 +8,7 @@ class CategoryProductsShow extends Component {
     // console.log(props.match.params);
     state = {
         products: [],
+        filteredProducts : []
     };
 
 
@@ -33,32 +34,31 @@ class CategoryProductsShow extends Component {
 
         await axios.get(`${apiUrl}/product/mainCategoryProducts/get?categoryId=${id}`)
             .then(response => {
-                console.log(response.data.output);
                 this.setState({
                     products: response.data.output
                 });
-
             }).catch(error => {
+                alert(error)
+            });
 
-            })
+        let filteredProducts = this.state.products.filter(product => {
+            return product.supplier.status !== "Non-Verified"
+        });
+        this.setState({
+            filteredProducts : filteredProducts
+        });
     };
 
     render() {
-        // console.log(this.state.products);
-            return (
-                <div>
-                    <Breadcrumbs title="Products"/>
-                    <div className="container">
-                        <ProductComponent data={this.state.products}/>
-                    </div>
+        return (
+            <div>
+                <Breadcrumbs title="Products"/>
+                <div className="container">
+                    <ProductComponent data={this.state.filteredProducts}/>
                 </div>
-            )
-        }
-
-
-
-
-
+            </div>
+        )
+    }
 }
 
 export default CategoryProductsShow

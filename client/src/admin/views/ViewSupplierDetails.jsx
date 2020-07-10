@@ -93,7 +93,7 @@ class ViewSupplierDetails extends Component {
                             <h4><b>Name : </b>{product.name}</h4>
                             <p><b>Price : </b>৳ {product.price}</p>
                             <p><b>Category : </b>৳ {product.price}</p>
-                            <Link to={`/productDetails/${product.id}`}>Details</Link>
+                            <Link to={`/admin/viewProductDetails/${product.id}`}>Details</Link>
                         </CardBody>
                     </Card>
                 </Col>

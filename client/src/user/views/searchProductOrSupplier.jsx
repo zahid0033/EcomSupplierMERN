@@ -10,7 +10,9 @@ class SearchProductOrSupplier extends Component{
         searchText : "",
         searchType : "",
         products : [],
-        suppliers : []
+        suppliers : [],
+        filteredProducts : [],
+        filteredSupplier : []
     };
 
     componentDidMount() {
@@ -44,7 +46,15 @@ class SearchProductOrSupplier extends Component{
                 })
                 .catch(error => {
                     alert (error)
-                })
+                });
+
+            let filteredProducts = this.state.products.filter(product => {
+                return product.supplier.status !== "Non-Verified"
+            });
+            this.setState({
+                filteredProducts : filteredProducts
+            });
+
         }else{
             await axios.get(`${apiUrl}/supplier/searchSupplier/${this.state.searchText}`)
                 .then(res => {
@@ -54,7 +64,14 @@ class SearchProductOrSupplier extends Component{
                 })
                 .catch(error => {
                     alert (error)
-                })
+                });
+
+            let filteredSupplier = this.state.suppliers.filter(supplier => {
+                return supplier.status !== "Non-Verified"
+            });
+            this.setState({
+                filteredSupplier : filteredSupplier
+            });
         }
 
     };
@@ -65,7 +82,7 @@ class SearchProductOrSupplier extends Component{
             <div>
                 <Breadcrumbs title="Search"/>
                 <div className="container">
-                    {this.state.searchType === 'product' ? <ProductComponent data={this.state.products}/> :  <SearchSupplierList suppliers={this.state.suppliers}/>}
+                    {this.state.searchType === 'product' ? <ProductComponent data={this.state.filteredProducts}/> :  <SearchSupplierList suppliers={this.state.filteredSupplier}/>}
                     {/*{this.state.searchType === 'supplier' ? <SearchSupplierList suppliers={this.state.suppliers}/> : ''}*/}
 
                 </div>

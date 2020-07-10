@@ -10,24 +10,28 @@ class ExclusiveProductSlider extends Component{
         exclusiveProducts : []
     };
 
-    async componentDidMount() {
-       await axios.get(`${apiUrl}/product`)
+    componentDidMount() {
+       this.loadProducts();
+    }
+
+    loadProducts = async () => {
+        await axios.get(`${apiUrl}/product`)
             .then(response => {
                 this.setState({
                     products : response.data.output
                 })
             }).catch(error => {
                 alert(error)
-           });
-        var exclusiveProduct = this.state.products.filter(product => {
+            });
+        let exclusiveProduct = this.state.products.filter(product => {
             return product.exclusive === "yes" && product.supplier.status !== "Non-Verified"
         });
         this.setState({
             exclusiveProducts : exclusiveProduct
         });
-    }
+    };
 
-    loadProducts = () => {
+    renderProducts = () => {
         return this.state.exclusiveProducts.map((product,key) => {
             return <ProductTemplateTwo product={product} key={key}/>
         })
@@ -54,7 +58,7 @@ class ExclusiveProductSlider extends Component{
         return (
             <Slider {...settings} className="product_slider carousel_slider owl-carousel owl-theme nav_style1">
                 {/*<SliderTemplate data={this.state.product}/>*/}
-                {this.loadProducts()}
+                {this.renderProducts()}
             </Slider>
         )
     }

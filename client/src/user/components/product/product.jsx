@@ -24,16 +24,7 @@ class ProductComponent extends Component {
 
         if (nextProps.data.length !== this.props.data.length){
             this.state.filterArray.splice(0,this.state.filterArray.length);
-            // this.setState({
-            //     status : [
-            //         {value: "Platinum", isChecked: false},
-            //         {value: "Gold", isChecked: false},
-            //         {value: "Silver", isChecked: false},
-            //         {value: "Verified", isChecked: false},
-            //     ]
-            // })
         }
-        // console.log(this.state.filterArray);
     }
 
     handleCheckedStatus = (e) => {
@@ -83,13 +74,14 @@ class ProductComponent extends Component {
                     <img width="300px" src={noDataImg} alt="" />
                 </div>
             )
+        }else{
+            return this.state.products.map((item,key) => {
+                return (
+                    <ProductTemplate product={item} key={key}/>
+                )
+            })
         }
 
-        return this.state.products.map((item,key) => {
-            return (
-                <ProductTemplate product={item} key={key}/>
-            )
-        })
     };
 
     changeStateData = () => {
@@ -101,8 +93,6 @@ class ProductComponent extends Component {
     };
 
     render() {
-        console.log("product",this.props.data);
-
         return (
             <div className="main_content">
                 <div className="section">
