@@ -84,3 +84,7 @@
     background: #FF324D;
     color: #ffffff;
 }
+
+.sale_banner img {
+    height: 300px;
+}

@@ -160,7 +160,7 @@ class ManageAdvertise extends Component{
                                             <label>Position</label>
                                             <select id="inputState" className="form-control" name="position"  onChange={this.handleChange}>
                                                 <option>Choose...</option>
-                                                <option value="after-latest-product">After latest products</option>
+                                                <option value="after-latest-products">After latest products</option>
                                                 <option value="after-exclusive-products-left">After exclusive products left</option>
                                                 <option value="after-exclusive-products-middle">After exclusive products middle</option>
                                                 <option value="after-exclusive-products-right">After exclusive products right</option>
