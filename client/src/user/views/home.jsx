@@ -5,8 +5,9 @@ import shopBanner3 from "../assets/images/shop_banner_img5.jpg";
 
 //slider
 import ProductSlider from '../components/slider/ProductSlider';
+import ExclusiveProductSlider from "../components/slider/ExclusiveProductSlider";
+import FeaturedProductSlider from "../components/slider/FeaturedProductSlider";
 import Banner from "../components/slider/banner";
-
 
 const Home = () => {
 
@@ -49,7 +50,8 @@ const Home = () => {
                     <div className="row">
                         <div className="col-12">
                             <div className="tab_slider">
-                                <ProductSlider/>
+                                {/*<ProductSlider/>*/}
+                                <ExclusiveProductSlider/>
                             </div>
                         </div>
                     </div>
@@ -150,7 +152,7 @@ const Home = () => {
                     <div className="row">
                         <div className="col-12">
                             <div className="tab_slider">
-                                <ProductSlider/>
+                                <FeaturedProductSlider/>
                             </div>
                         </div>
                     </div>
