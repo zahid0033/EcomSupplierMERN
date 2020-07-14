@@ -8,6 +8,7 @@ import Breadcrumbs from "../widgets/Breadcrumbs/breadcrumbs";
 import {Link} from "react-router-dom";
 //validation
 import SimpleReactValidator from 'simple-react-validator';
+import loading from '../assets/images/loadForm.gif';
 
 
 class SupplierSignup extends Component{
@@ -29,7 +30,8 @@ class SupplierSignup extends Component{
         terms : false,
         isLoggedIn : false,
         error : "",
-        errorMessage : null
+        errorMessage : null,
+        loading: false
     };
 
     componentDidMount = async() => {
@@ -56,10 +58,15 @@ class SupplierSignup extends Component{
     };
     onSave = async (e) => {
         e.preventDefault();
+
         if (this.state.password !== this.state.confirmedPassword) {
             alert("You password doesnt match")
         }
         if (this.validator.allValid()) {
+            this.setState({
+                loading: true
+            });
+
             const dataPost = {
                 name : this.state.name,
                 address : this.state.address,
@@ -75,15 +82,17 @@ class SupplierSignup extends Component{
                 .then(response => {
                     if (response.success === true) {
                         Swal.fire(
-                            'Added!',
-                            'Supplier added Successfully.',
+                            `${response.message}`,
                             'success'
                         );
-                        this.props.history.push("/supplier/profile");
-                        window.location.reload();
+                        this.setState({
+                            loading: false
+                        });
+                        this.props.history.push("/supplier/signin");
+                        // window.location.reload();
                     }
                     else {
-                        alert("hey " + response.data.message)
+                        console.log("hey " + response.data.message)
                     }
                 })
                 .catch(error=>{
@@ -241,6 +250,7 @@ class SupplierSignup extends Component{
                                                     </div>
                                                 </div>
                                             </div>
+                                            { this.state.loading && <img width="100%" src={loading} alt=""/> }
                                             <div className="form-group">
                                                 <button
                                                     type="submit"
@@ -250,7 +260,6 @@ class SupplierSignup extends Component{
                                                 >
                                                     Register
                                                 </button>
-
                                             </div>
                                         </form>
                                         <div className="different_login">

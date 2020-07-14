@@ -14,7 +14,7 @@ app.use(function(req, res, next) {
 const {verifyToken,isSuperAdmin,isSupplier}  = require('../../middleware/authJwt');
 
 //controller import
-const {allSupplier,addSupplier,getSupplier,editSupplier,deleteSupplier,signUp,signin,searchSupplier,statusUpdate,forgetPassword,resetSupplierPassword,updatePasswordViaEmail,upload} = require ('../../controller/Supplier/supplierController');
+const {allSupplier,addSupplier,getSupplier,editSupplier,deleteSupplier,signUp,verifyEmail,signin,searchSupplier,statusUpdate,forgetPassword,resetSupplierPassword,updatePasswordViaEmail,upload} = require ('../../controller/Supplier/supplierController');
 
 
 router.post('/signin', signin );
@@ -22,6 +22,7 @@ router.post('/forgetPassword', forgetPassword );
 router.get('/resetSupplierPassword/:token', resetSupplierPassword );
 router.post('/updatePasswordViaEmail', updatePasswordViaEmail );
 router.post('/signup', signUp );
+router.get('/verifyEmail/:token', verifyEmail );
 router.get('/', allSupplier );
 router.post('/add', addSupplier );
 router.get('/get/:id', getSupplier );

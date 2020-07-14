@@ -54,6 +54,7 @@ import SupplierProduct from "./user/views/supplierProduct";
 import SearchProductOrSupplier from "./user/views/searchProductOrSupplier";
 import ForgetPassword from "./user/views/forgetPassword";
 import ResetPassword from "./user/views/resetPassword";
+import EmailVerify from "./user/views/emailVerify";
 
 var dashRoutes = [
   {
@@ -294,6 +295,13 @@ export const userRoutes = [
     name: "Supplier SignUp",
     icon: "pe-7s-bell",
     component: SupplierSignup,
+    layout: "/user"
+  },
+  {
+    path: "/emailVerify/:token",
+    name: "Email Verify",
+    icon: "pe-7s-bell",
+    component: EmailVerify,
     layout: "/user"
   },
   {

@@ -8,6 +8,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 //validation
 import SimpleReactValidator from 'simple-react-validator';
+import loading from "../../assets/images/loadForm.gif";
 
 class SupplierAddOrEditProduct extends Component{
     constructor() {
@@ -23,11 +24,11 @@ class SupplierAddOrEditProduct extends Component{
         model : "",
         subCategoryId : null,
         supplierId : null,
-        subCategories : []
+        subCategories : [],
+        loading: false
     };
 
     componentDidMount = async () => {
-        console.log(this.props.singleData);
         if(this.props.edit){
             let {name,specification,description,images,price,model,subCategoryId} = this.props.singleData;
             this.setState({
@@ -93,6 +94,9 @@ class SupplierAddOrEditProduct extends Component{
     onSave = async () => {
 
         if (this.validator.allValid()){
+            this.setState({
+                loading: true
+            });
             const dataPost = new FormData();
             if (!this.props.edit){
                 dataPost.set('name' , this.state.name);
@@ -116,6 +120,9 @@ class SupplierAddOrEditProduct extends Component{
                                 'Product added Successfully.',
                                 'success'
                             );
+                            this.setState({
+                                loading: false
+                            });
                             // window.location.reload(false);
                         }
                         else {
@@ -150,6 +157,9 @@ class SupplierAddOrEditProduct extends Component{
                                 'Product updated Successfully.',
                                 'success'
                             );
+                            this.setState({
+                                loading: false
+                            });
                             // window.location.reload(false);
                         }
                         else {
@@ -238,7 +248,7 @@ class SupplierAddOrEditProduct extends Component{
                             {this.loadSubCatg()}
                         </select>
                     </div>
-
+                    { this.state.loading && <img width="100%" src={loading} alt=""/> }
                     <div className="form-group">
                         <button
                             type="submit"

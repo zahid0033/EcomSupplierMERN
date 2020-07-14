@@ -5,9 +5,6 @@ class SupplierAuthService {
     supplierSignup (dataPost) {
         return axios.post(`${apiUrl}/supplier/signup`,dataPost)
             .then(response => {
-                if (response.data.accessToken) {
-                    localStorage.setItem("supplier", JSON.stringify(response.data));
-                }
 
                 return response.data;
             });
