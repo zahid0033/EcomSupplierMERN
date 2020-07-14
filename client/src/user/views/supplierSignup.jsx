@@ -104,9 +104,18 @@ class SupplierSignup extends Component{
                         })
                     }
                     else if(error.response.data.name === "server error"){
-                        this.setState({
-                            errorMessage : error.response.data.error[0].message
-                        })
+                        if (error.response.data.error[0].message === "email must be unique"){
+                            this.setState({
+                                loading: false,
+                                errorMessage : "You have already signed up with this email.Try with a new one"
+                            })
+                        }else{
+                            this.setState({
+                                loading: false,
+                                errorMessage : error.response.data.error[0].message
+                            })
+                        }
+
                     }
                 });
         } else {

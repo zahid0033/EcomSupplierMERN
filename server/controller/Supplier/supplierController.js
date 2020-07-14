@@ -106,7 +106,7 @@ module.exports.forgetPassword = async (req,res) => {
             });
             // create reusable transporter object using the default SMTP transport
             let transporter = nodemailer.createTransport({
-                service: 'gmail',
+                service: `${process.env.MAIL_SERVICE}`,
                 auth: {
                     user: `${process.env.MAIL_USER}`, // generated ethereal user
                     pass: `${process.env.MAIL_PASSWORD}`, // generated ethereal password
@@ -231,7 +231,6 @@ module.exports.signUp = async (req,res) => {
 
         // const token = jwt.sign({id: data.id,email:data.email},config.secret,{expiresIn: 86400});
         const token = jwt.sign({id: data.id,email:data.email},config.secret,{expiresIn: 3600000});
-        console.log(token);
         Supplier.update({
             verifyEmailToken: token,
             mailTokenExpires: Date.now()+ 3600000,
@@ -277,12 +276,6 @@ module.exports.signUp = async (req,res) => {
             }
         });
 
-        // res.status(200).json({
-        //     success: true,
-        //     message: "Supplier Logged in successfully",
-        //     id: data.id,
-        //     name: data.name
-        // })
     }).catch(error => {
         res.status(500).json({
             name: "server error",
@@ -305,37 +298,105 @@ module.exports.verifyEmail = async (req,res) => {
                 message : 'Your verification link is invalid or has expired'
             });
         }else{
-            const compare = supplier.mailTokenExpires > Date.now();
-            if (compare){
-                Supplier.update({
-                        verifyEmailToken : null,
-                        mailTokenExpires: null,
-                        mailVerifyStatus: "verified",
-                    },
-                    {
-                        where : {verifyEmailToken: token}
-                    }).then(data => {
-                    res.status(200).json({
-                        success: true,
-                        message : 'Mail Verified. You can login now.'
-                    })
-                }).catch(error => {
-                    res.status(500).json({
-                        name: "server error",
-                        error: error.errors
-                    });
-                });
-
-
-            }else{
+            if (supplier.mailVerifyStatus === "verified"){
                 res.status(200).json({
-                    success : false,
-                    message : 'Your verification link is invalid or has expired'
+                    success : true,
+                    message : 'Your email has already been verified. Go to Login'
                 });
-            }
+            }else{
+                const compare = supplier.mailTokenExpires > Date.now();
+                if (compare){
+                    Supplier.update({
+                            verifyEmailToken : null,
+                            mailTokenExpires: null,
+                            mailVerifyStatus: "verified",
+                        },
+                        {
+                            where : {verifyEmailToken: token}
+                        }).then(data => {
+                        res.status(200).json({
+                            success: true,
+                            message : 'Mail Verified. You can login now.'
+                        })
+                    }).catch(error => {
+                        res.status(500).json({
+                            name: "server error",
+                            error: error.errors
+                        });
+                    });
 
+
+                }else{
+                    res.status(200).json({
+                        success : false,
+                        message : 'Your verification link is invalid or has expired'
+                    });
+                }
+            }
         }
     })
+};
+
+module.exports.sendVerificationToken = async (req,res) => {
+
+    const {email} = req.body;
+
+    Supplier.findOne({
+        where : {
+            email : email,
+        }
+    }).then(data => {
+        const token = jwt.sign({id: data.id,email:data.email},config.secret,{expiresIn: 3600000});
+        Supplier.update({
+            verifyEmailToken: token,
+            mailTokenExpires: Date.now()+ 3600000
+        },{
+            where : {email: data.email}
+        });
+        // create reusable transporter object using the default SMTP transport
+        let transporter = nodemailer.createTransport({
+            service: `${process.env.MAIL_SERVICE}`,
+            auth: {
+                user: `${process.env.MAIL_USER}`, // generated ethereal user
+                pass: `${process.env.MAIL_PASSWORD}`, // generated ethereal password
+            },
+        });
+
+        const mailOptions = {
+            from: `${process.env.MAIL_USER}`, // sender address
+            to: `${email}`, // list of receivers
+            subject: "From Alibaba", // Subject line
+            text: 'You are receiving this email because you (or someone else) have requested to reset of the password of your account.\n\n'
+                +'Please Click on the following link,or paste this into your browser to complete the process within one hour of receiving it : \n\n'
+                +`http://localhost:3000/emailVerify/${token} \n\n`
+                +'If you did not request this, Please ignore this email, Your password will remain unchanged. \n', // plain text body
+            // html: "<b>Hello world?</b>", // html body
+        };
+
+        // send mail with defined transport object
+        transporter.sendMail(mailOptions,function (err,response) {
+            if(err){
+                res.status(500).json({
+                    name: "server error",
+                    error: err
+                });
+                console.log("mail send error",err)
+            }else{
+                res.status(200).json({
+                    success: true,
+                    message: "A verification mail has been sent to your email. Please Verify to log in",
+                    id: data.id,
+                    name: data.name
+                })
+            }
+        });
+    }).catch(error =>{
+        res.status(500).json({
+            name: "server error",
+            error: error.errors
+        });
+    })
+
 };
 
 module.exports.allSupplier = async (req,res) => {

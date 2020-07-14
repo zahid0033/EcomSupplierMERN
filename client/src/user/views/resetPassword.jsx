@@ -49,7 +49,7 @@ class ResetPassword extends Component{
         })
     };
 
-    updatePassword = (e) => {
+    updatePassword = async (e) => {
         e.preventDefault();
         if (this.state.password !== this.state.confirmPassword) {
             alert("You password doesnt match")
@@ -58,16 +58,16 @@ class ResetPassword extends Component{
             email: this.state.email,
             password: this.state.password
         };
-        axios.post(`${apiUrl}/supplier/updatePasswordViaEmail`,dataPost)
-            .then(res => {
-                if (res.data.success){
-                    this.setState({
-                        password: '',
-                        confirmPassword: '',
-                        message : res.data.message
-                    })
-                }
-            })
+        await axios.post(`${apiUrl}/supplier/updatePasswordViaEmail`,dataPost)
+                .then(res => {
+                    if (res.data.success){
+                        this.setState({
+                            password: '',
+                            confirmPassword: '',
+                            message : res.data.message
+                        })
+                    }
+                })
     };
 
     render() {
