@@ -346,50 +346,59 @@ module.exports.sendVerificationToken = async (req,res) => {
             email : email,
         }
     }).then(data => {
-        const token = jwt.sign({id: data.id,email:data.email},config.secret,{expiresIn: 3600000});
-        Supplier.update({
-            verifyEmailToken: token,
-            mailTokenExpires: Date.now()+ 3600000
-        },{
-            where : {email: data.email}
-        });
-        // create reusable transporter object using the default SMTP transport
-        let transporter = nodemailer.createTransport({
-            service: `${process.env.MAIL_SERVICE}`,
-            auth: {
-                user: `${process.env.MAIL_USER}`, // generated ethereal user
-                pass: `${process.env.MAIL_PASSWORD}`, // generated ethereal password
-            },
-        });
+        if (data === null){
+            res.status(200).json({
+                success : false,
+                message : "This Email doesn't register before"
+            });
+        }
+        else{
+            const token = jwt.sign({id: data.id,email:data.email},config.secret,{expiresIn: 3600000});
+            Supplier.update({
+                verifyEmailToken: token,
+                mailTokenExpires: Date.now()+ 3600000
+            },{
+                where : {email: data.email}
+            });
+            // create reusable transporter object using the default SMTP transport
+            let transporter = nodemailer.createTransport({
+                service: `${process.env.MAIL_SERVICE}`,
+                auth: {
+                    user: `${process.env.MAIL_USER}`, // generated ethereal user
+                    pass: `${process.env.MAIL_PASSWORD}`, // generated ethereal password
+                },
+            });
 
-        const mailOptions = {
-            from: `${process.env.MAIL_USER}`, // sender address
-            to: `${email}`, // list of receivers
-            subject: "From Alibaba", // Subject line
-            text: 'You are receiving this email because you (or someone else) have requested to reset of the password of your account.\n\n'
-                +'Please Click on the following link,or paste this into your browser to complete the process within one hour of receiving it : \n\n'
-                +`http://localhost:3000/emailVerify/${token} \n\n`
-                +'If you did not request this, Please ignore this email, Your password will remain unchanged. \n', // plain text body
-            // html: "<b>Hello world?</b>", // html body
-        };
+            const mailOptions = {
+                from: `${process.env.MAIL_USER}`, // sender address
+                to: `${email}`, // list of receivers
+                subject: "From Alibaba", // Subject line
+                text: 'You are receiving this email because you (or someone else) have requested to reset of the password of your account.\n\n'
+                    +'Please Click on the following link,or paste this into your browser to complete the process within one hour of receiving it : \n\n'
+                    +`http://localhost:3000/emailVerify/${token} \n\n`
+                    +'If you did not request this, Please ignore this email, Your password will remain unchanged. \n', // plain text body
+                // html: "<b>Hello world?</b>", // html body
+            };
 
-        // send mail with defined transport object
-        transporter.sendMail(mailOptions,function (err,response) {
-            if(err){
-                res.status(500).json({
-                    name: "server error",
-                    error: err
-                });
-                console.log("mail send error",err)
-            }else{
-                res.status(200).json({
-                    success: true,
-                    message: "A verification mail has been sent to your email. Please Verify to log in",
-                    id: data.id,
-                    name: data.name
-                })
-            }
-        });
+            // send mail with defined transport object
+            transporter.sendMail(mailOptions,function (err,response) {
+                if(err){
+                    res.status(500).json({
+                        name: "server error",
+                        error: err
+                    });
+                    console.log("mail send error",err)
+                }else{
+                    res.status(200).json({
+                        success: true,
+                        message: "A verification mail has been sent to your email. Please Verify to log in",
+                        id: data.id,
+                        name: data.name
+                    })
+                }
+            });
+        }
+
     }).catch(error =>{
         res.status(500).json({
             name: "server error",

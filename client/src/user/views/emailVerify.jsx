@@ -65,6 +65,11 @@ class EmailVerify extends Component{
                             message : res.data.message,
                             loading: false
                         })
+                    }else{
+                        this.setState({
+                            message : res.data.message,
+                            loading: false
+                        })
                     }
                 }).catch(error =>{
                     console.log(error)
