@@ -116,7 +116,7 @@ module.exports.forgetPassword = async (req,res) => {
             const mailOptions = {
                 from: `${process.env.MAIL_USER}`, // sender address
                 to: `${email}`, // list of receivers
-                subject: "Zahid From Alibaba", // Subject line
+                subject: "From Alibaba", // Subject line
                 text: 'You are receiving this email because you (or someone else) have requested to reset of the password of your account.\n\n'
                 +'Please Click on the following link,or paste this into your browser to complete the process within one hour of receiving it : \n\n'
                 +`http://localhost:3000/resetPassword/${token} \n\n`

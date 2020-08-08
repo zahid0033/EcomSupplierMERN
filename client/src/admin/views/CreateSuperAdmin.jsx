@@ -32,6 +32,7 @@ class CreateSuperAdmin extends Component{
         address : "",
         phone : "",
         status : "",
+        secretCode: "",
         file : null,
         isUpdated : false,
         roles : [],
@@ -94,6 +95,7 @@ class CreateSuperAdmin extends Component{
             dataPost.set('role_id' , this.state.role_id);
             dataPost.set('address' , this.state.address);
             dataPost.set('phone' , this.state.phone);
+            dataPost.set('secretCode' , this.state.secretCode);
             dataPost.append('file' , this.state.file);
 
             await axios.post(`${apiUrl}/admin/addSuperAdmin`,dataPost, {
@@ -114,7 +116,10 @@ class CreateSuperAdmin extends Component{
                         // window.location.reload(false);
                     }
                     else {
-                        alert("hey " + response.data.message)
+                        this.setState({
+                            errorMessage : response.data.message
+                        })
+                        console.log("hey " + response.data.message)
                     }
                 })
                 .catch(error => {
@@ -190,6 +195,10 @@ class CreateSuperAdmin extends Component{
 
                                     <div className="form-row">
                                         <input type="file" className="form-control" name="file" onChange={this.fileSelectHandler}/>
+                                    </div>
+                                    <div className="form-row">
+                                        <label htmlFor="inputState">Role</label>
+                                        <input type="text" className="form-control" name="secretCode" onChange={(value)=> this.setState({secretCode: value.target.value})}/>
                                     </div>
 
                                     {/*<input type="submit" className= "btn btn-primary pull-right" value="Add Admin"/>*/}

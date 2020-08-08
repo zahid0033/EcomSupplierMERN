@@ -126,7 +126,7 @@ var dashRoutes = [
     icon: "design-2_ruler-pencil",
     component: authAdminComponent(CreateAdmin),
     layout: "/admin",
-    permission : ["superAdmin","Moderator"],
+    permission : ["superAdmin"],
     sidebar: false
   },
   {
@@ -135,7 +135,7 @@ var dashRoutes = [
     icon: "clothes_tie-bow",
     component: authAdminComponent(ManageAdmins),
     layout: "/admin",
-    permission : ["superAdmin","Moderator"],
+    permission : ["superAdmin"],
     sidebar: true
   },
   {
@@ -153,7 +153,7 @@ var dashRoutes = [
     icon: "design_app",
     component: authAdminComponent(ManageProducts),
     layout: "/admin",
-    permission : ["superAdmin","Moderator"],
+    permission : ["superAdmin","Moderator","ProductAnalyst"],
     sidebar: true
   },
   {
@@ -162,7 +162,7 @@ var dashRoutes = [
     icon: "design-2_ruler-pencil",
     component: authAdminComponent(ViewProductsDetails),
     layout: "/admin",
-    permission : ["superAdmin","Moderator"],
+    permission : ["superAdmin","Moderator","ProductAnalyst"],
     sidebar: false
   },
   {
@@ -171,7 +171,7 @@ var dashRoutes = [
     icon: "design-2_ruler-pencil",
     component: authAdminComponent(ViewSupplierDetails),
     layout: "/admin",
-    permission : ["superAdmin"],
+    permission : ["superAdmin","Moderator","ProductAnalyst"],
     sidebar: false
   },
   {
@@ -180,7 +180,7 @@ var dashRoutes = [
     icon: "location_map-big",
     component: authAdminComponent(ManageBanners),
     layout: "/admin",
-    permission : ["superAdmin","Moderator"],
+    permission : ["superAdmin","Advertiser"],
     sidebar: true
   },
   {
@@ -189,7 +189,7 @@ var dashRoutes = [
     icon: "design_bullet-list-67",
     component: authAdminComponent(ManageCategories),
     layout: "/admin",
-    permission : ["superAdmin"],
+    permission : ["superAdmin","ProductAnalyst"],
     sidebar: true
   },
   {
@@ -198,7 +198,7 @@ var dashRoutes = [
     icon: "files_single-copy-04",
     component: authAdminComponent(ManageAdvertise),
     layout: "/admin",
-    permission : ["superAdmin","Moderator"],
+    permission : ["superAdmin","Advertiser"],
     sidebar: true
   },
   {

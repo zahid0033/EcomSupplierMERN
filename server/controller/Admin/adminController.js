@@ -142,53 +142,71 @@ module.exports.addSuperAdmin = async (req,res) => {
     // res.send({req: req.file});
     const path = req.file && req.file.path;
 
-    const {name,email,password,role_id,address,phone,image} = req.body;
+    const {name,email,password,role_id,address,phone,secretCode,image} = req.body;
 
     if (path){
-        await Admin.create({
-            name : name,
-            email : email,
-            password : bcrypt.hashSync(password, 10),
-            roleId : role_id,
-            address : address,
-            phone : phone,
-            image : req.file.path,
-            status : "active",
-        }).then((data) => {
+        if (secretCode !== process.env.SecretCode){
             res.status(200).json({
-                success: true,
-                message: "Admin Created successfully",
-                output: data
+                success: false,
+                message: "Secret Code Doesnt match",
             })
-        }).catch(error => {
-            res.status(500).json({
-                name: "server error",
-                error: error.errors
-            });
-        })
+        }
+        else{
+            await Admin.create({
+                name : name,
+                email : email,
+                password : bcrypt.hashSync(password, 10),
+                roleId : role_id,
+                address : address,
+                phone : phone,
+                image : req.file.path,
+                status : "active",
+            }).then((data) => {
+                res.status(200).json({
+                    success: true,
+                    message: "Admin Created successfully",
+                    output: data
+                })
+            }).catch(error => {
+                res.status(500).json({
+                    name: "server error",
+                    error: error.errors
+                });
+            })
+        }
+
     }
     else{
-        await Admin.create({
-            name : name,
-            email : email,
-            password : bcrypt.hashSync(password, 10),
-            roleId : role_id,
-            address : address,
-            phone : phone,
-            image : null,
-            status : "active",
-        }).then((data) => {
+        if (secretCode !== process.env.SecretCode){
             res.status(200).json({
-                success: true,
-                message: "Admin Created successfully",
-                output: data
+                success: false,
+                message: "Secret Code Doesnt match",
             })
-        }).catch(error => {
-            res.status(500).json({
-                name: "server error",
-                error: error.errors
-            });
-        })
+        }
+        else{
+            await Admin.create({
+                name : name,
+                email : email,
+                password : bcrypt.hashSync(password, 10),
+                roleId : role_id,
+                address : address,
+                phone : phone,
+                image : null,
+                status : "active",
+            }).then((data) => {
+                res.status(200).json({
+                    success: true,
+                    message: "Admin Created successfully",
+                    output: data
+                })
+            }).catch(error => {
+                res.status(500).json({
+                    name: "server error",
+                    error: error.errors
+                });
+            })
+        }
+
     }
 
 };
