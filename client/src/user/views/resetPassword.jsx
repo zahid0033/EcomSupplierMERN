@@ -1,6 +1,6 @@
 import React,{Component} from "react";
 import SimpleReactValidator from "simple-react-validator";
-import {apiUrl} from "../../config/config";
+
 import axios from 'axios';
 import Breadcrumbs from "../widgets/Breadcrumbs/breadcrumbs";
 import {Link} from "react-router-dom";
@@ -19,7 +19,7 @@ class ResetPassword extends Component{
     }
 
     async componentDidMount() {
-        await axios.get(`${apiUrl}/supplier/resetSupplierPassword/${this.props.match.params.token}`)
+        await axios.get(`/api/supplier/resetSupplierPassword/${this.props.match.params.token}`)
         .then(res => {
             if (res.data.success && res.data.message === 'password reset link is valid'){
                 this.setState({
@@ -58,7 +58,7 @@ class ResetPassword extends Component{
             email: this.state.email,
             password: this.state.password
         };
-        await axios.post(`${apiUrl}/supplier/updatePasswordViaEmail`,dataPost)
+        await axios.post(`/api/supplier/updatePasswordViaEmail`,dataPost)
                 .then(res => {
                     if (res.data.success){
                         this.setState({

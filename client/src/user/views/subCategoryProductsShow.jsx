@@ -2,7 +2,7 @@ import React,{Component} from "react";
 import axios from 'axios';
 import ProductComponent from "../components/product/product";
 import Breadcrumbs from "../widgets/Breadcrumbs/breadcrumbs";
-import {apiUrl} from "../../config/config";
+
 
 class SubCategoryProductsShow extends Component {
     // console.log(props.match.params);
@@ -22,7 +22,7 @@ class SubCategoryProductsShow extends Component {
     }
 
     fetchProduct = async (id) => {
-        await axios.get(`${apiUrl}/product/subCategoryProducts/get?categoryId=${id}`)
+        await axios.get(`/api/product/subCategoryProducts/get?categoryId=${id}`)
             .then(response => {
                 this.setState({
                     products: response.data.output

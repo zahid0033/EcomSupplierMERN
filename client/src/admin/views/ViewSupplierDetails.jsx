@@ -1,20 +1,3 @@
-/*!
-
-=========================================================
-* Now UI Dashboard React - v1.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/now-ui-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/now-ui-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React,{Component} from "react";
 
 // reactstrap components
@@ -31,7 +14,7 @@ import PanelHeader from "../components/PanelHeader/PanelHeader.jsx";
 import axios from "axios";
 import {tbody} from "../variables/general";
 import {Link} from "react-router-dom";
-import {apiUrl} from "../../config/config";
+
 import authHeader from "../adminServices/authHeader";
 
 class ViewSupplierDetails extends Component {
@@ -56,7 +39,7 @@ class ViewSupplierDetails extends Component {
     }
 
     loadSupplier = async (id) => {
-        await axios.get(`${apiUrl}/supplier/get/${id}`)
+        await axios.get(`/api/supplier/get/${id}`)
             .then(response => {
                 if (response.data.success){
                     // console.log(response.data.output)
@@ -108,7 +91,7 @@ class ViewSupplierDetails extends Component {
     };
 
     sendSave = async () => {
-        await axios.post(`${apiUrl}/supplier/statusUpdate`,{status : this.state.status,id: this.state.supplier.id},{headers : {"x-access-token" : authHeader()}})
+        await axios.post(`/api/supplier/statusUpdate`,{status : this.state.status,id: this.state.supplier.id},{headers : {"x-access-token" : authHeader()}})
                 .then(res => {
                     this.loadSupplier(this.state.supplier.id);
                     this.statusEditHandle();

@@ -56,7 +56,7 @@ class SupplierAddorEditEmployee extends Component{
             const splitPath = this.props.singleData.image.split("\\");
             const path = splitPath[splitPath.length - 1];
 
-            return (<img style={{width : "50px", height : "50px"}} src={`${frontendUrl}/images/employee/${path}`} alt=""/>)
+            return (<img style={{width : "50px", height : "50px"}} src={`/images/employee/${path}`} alt=""/>)
         }else{
             return (<span>No Photo Available</span>)
         }
@@ -81,7 +81,7 @@ class SupplierAddorEditEmployee extends Component{
                 dataPost.set('supplierId' , this.state.supplierId);
                 dataPost.append('image' , this.state.image);
 
-                await axios.post(`${apiUrl}/employee/add`,dataPost, {
+                await axios.post(`/api/employee/add`,dataPost, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                         "x-access-token" : supplierAuthHeader()
@@ -125,7 +125,7 @@ class SupplierAddorEditEmployee extends Component{
                 dataPost.set('supplierId' , this.state.supplierId);
                 dataPost.append('image' , this.state.image);
 
-                await axios.post(`${apiUrl}/employee/update/${this.props.singleData.id}`,dataPost, {
+                await axios.post(`/api/employee/update/${this.props.singleData.id}`,dataPost, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                         "x-access-token" : supplierAuthHeader()

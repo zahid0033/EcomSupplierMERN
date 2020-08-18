@@ -7,7 +7,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 //validation
 import SimpleReactValidator from 'simple-react-validator';
-import {apiUrl} from "../../config/config";
+
 
 class ForgetPassword extends Component{
     constructor() {
@@ -36,7 +36,7 @@ class ForgetPassword extends Component{
                 sending : true
             });
 
-            await axios.post(`${apiUrl}/supplier/forgetPassword`,dataPost)
+            await axios.post(`/api/supplier/forgetPassword`,dataPost)
                 .then(response => {
                     if (response.data.success === true) {
                         this.setState({

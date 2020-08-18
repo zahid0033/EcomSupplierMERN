@@ -1,5 +1,5 @@
 import React,{Component} from "react";
-import {apiUrl, frontendUrl} from '../../config/config';
+
 
 import axios from "axios";
 //sweetalert2
@@ -44,7 +44,7 @@ class CreateAdmin extends Component {
     }
 
     fetchRoles = async () => {
-        await axios.get(`${apiUrl}/role`)
+        await axios.get(`/api/role`)
             .then(res => {
                 if (res.data.success){
                     this.setState({
@@ -77,7 +77,7 @@ class CreateAdmin extends Component {
             const splitPath = this.props.singleData.image.split("\\");
             const path = splitPath[splitPath.length - 1];
 
-            return (<img style={{width : "50px", height : "50px"}} src={`${frontendUrl}/images/admin/${path}`} alt=""/>)
+            return (<img style={{width : "50px", height : "50px"}} src={`/images/admin/${path}`} alt=""/>)
         }else{
             return (<span>No Photo Available</span>)
         }
@@ -99,7 +99,7 @@ class CreateAdmin extends Component {
         }
         else {
 
-            // const baseUrl = `${apiUrl}/admin/add`;
+            // const baseUrl = `/api/admin/add`;
             const dataPost = new FormData();
             if (!this.props.edit){
                 dataPost.set('name' , this.state.name);
@@ -110,7 +110,7 @@ class CreateAdmin extends Component {
                 dataPost.set('phone' , this.state.phone);
                 dataPost.append('file' , this.state.file);
 
-                await axios.post(`${apiUrl}/admin/add`,dataPost, {
+                await axios.post(`/api/admin/add`,dataPost, {
                     headers: {
                             "Content-Type": "multipart/form-data",
                             "x-access-token" : authHeader()
@@ -157,7 +157,7 @@ class CreateAdmin extends Component {
                 dataPost.set('status' , this.state.status);
                 dataPost.append('file' , this.state.file);
 
-                await axios.post(`${apiUrl}/admin/update/${this.props.singleData.id}`,dataPost, {
+                await axios.post(`/api/admin/update/${this.props.singleData.id}`,dataPost, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                         "x-access-token" : authHeader()

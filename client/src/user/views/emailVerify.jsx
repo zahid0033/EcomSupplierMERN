@@ -1,6 +1,6 @@
 import React,{Component} from "react";
 import axios from "axios";
-import {apiUrl} from "../../config/config";
+
 import Breadcrumbs from "../widgets/Breadcrumbs/breadcrumbs";
 import SimpleReactValidator from "simple-react-validator";
 import loading from "../assets/images/loadForm.gif";
@@ -20,7 +20,7 @@ class EmailVerify extends Component{
 
 
     async componentDidMount() {
-        await axios.get(`${apiUrl}/supplier/verifyEmail/${this.props.match.params.token}`)
+        await axios.get(`/api/supplier/verifyEmail/${this.props.match.params.token}`)
             .then(res => {
                 if (res.data.success){
                     this.setState({
@@ -58,7 +58,7 @@ class EmailVerify extends Component{
             const dataPost = {
                 email: this.state.email,
             };
-            await axios.post(`${apiUrl}/supplier/sendVerificationToken`,dataPost)
+            await axios.post(`/api/supplier/sendVerificationToken`,dataPost)
                 .then(res => {
                     if (res.data.success){
                         this.setState({

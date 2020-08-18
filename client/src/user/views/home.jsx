@@ -19,7 +19,7 @@ class Home extends Component {
     };
 
     async componentDidMount() {
-        await axios.get(`${apiUrl}/advertise`)
+        await axios.get(`/api/advertise`)
             .then(res => {
                 this.setState({
                     advertises: res.data.output
@@ -38,7 +38,7 @@ class Home extends Component {
                    <div className="col-md-12 mt-2" key={key}>
                        <div className="sale_banner">
                            <a className="hover_effect1" href="/#">
-                               <img src={`${frontendUrl}/images/advertise/${path}`} alt=""/>
+                               <img src={`/images/advertise/${path}`} alt=""/>
                            </a>
                        </div>
                    </div>
@@ -58,7 +58,7 @@ class Home extends Component {
                 <div className="col-md-4">
                     <div className="sale_banner">
                         <a className="hover_effect1" href="/#">
-                            <img src={`${frontendUrl}/images/advertise/${path}`} alt=""/>
+                            <img src={`/images/advertise/${path}`} alt=""/>
                         </a>
                     </div>
                 </div>
@@ -75,7 +75,7 @@ class Home extends Component {
                     <div className="col-md-12 mt-2" key={key}>
                         <div className="sale_banner">
                             <a className="hover_effect1" href="/#">
-                                <img src={`${frontendUrl}/images/advertise/${path}`} alt=""/>
+                                <img src={`/images/advertise/${path}`} alt=""/>
                             </a>
                         </div>
                     </div>

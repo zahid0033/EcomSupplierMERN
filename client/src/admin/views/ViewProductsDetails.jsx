@@ -26,7 +26,7 @@ class ViewProductsDetails extends Component{
     };
 
     loadProducts = async (id) => {
-        await axios.get(`${apiUrl}/product/get/${id}`)
+        await axios.get(`/api/product/get/${id}`)
             .then(response => {
                 if (response.data.success){
                     this.setState({
@@ -48,7 +48,7 @@ class ViewProductsDetails extends Component{
             const path = splitPath[splitPath.length - 1];
             return (
                 <div className="item col-md-3" key={key}>
-                        <img style={{width : "100%", height : "120px"}} src={`${frontendUrl}/images/products/${path}`} alt=""/>
+                        <img style={{width : "100%", height : "120px"}} src={`/images/products/${path}`} alt=""/>
                 </div>
             )
         });

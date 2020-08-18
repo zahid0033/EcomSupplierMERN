@@ -11,7 +11,7 @@ const SupplierTemplate = (props) => {
             const splitPath = props.supplier.image.split("\\");
             const path = splitPath[splitPath.length - 1];
 
-            return (<img style={{width : "100%", height : "150px", borderRadius : "100%"}} src={`${frontendUrl}/images/supplier/${path}`} alt=""/>)
+            return (<img style={{width : "100%", height : "150px", borderRadius : "100%"}} src={`/images/supplier/${path}`} alt=""/>)
         }else{
             return (<img src={img1} alt=""/>)
         }
@@ -26,7 +26,7 @@ const SupplierTemplate = (props) => {
                     return (
                         <div className="col-md-3" key={key}>
                             <Card>
-                                <CardImg top width="100%" height="150px" src={`${frontendUrl}/images/products/${path}`} alt={product.name} />
+                                <CardImg top width="100%" height="150px" src={`/images/products/${path}`} alt={product.name} />
                                 <CardBody>
                                     <p className="product_title text-center"><b><Link to={`/productDetails/${product.id}`}>{product.name}</Link></b></p>
                                     <span className="price">৳ {product.price}</span><br/>

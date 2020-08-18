@@ -29,7 +29,7 @@ class SupplierProfile extends Component{
     };
 
     loadSupplier = async (id) => {
-        await axios.get(`${apiUrl}/supplier/get/${id}`)
+        await axios.get(`/api/supplier/get/${id}`)
                 .then(response => {
                     if (response.data.success){
                         this.setState({
@@ -56,7 +56,7 @@ class SupplierProfile extends Component{
             const splitPath = this.state.supplier.image.split("\\");
             const path = splitPath[splitPath.length - 1];
 
-            return (<img className="circle_image" src={`${frontendUrl}/images/supplier/${path}`} alt=""/>)
+            return (<img className="circle_image" src={`/images/supplier/${path}`} alt=""/>)
         }else{
             return (<img className="circle_image" src={img1} alt=""/>)
         }

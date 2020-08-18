@@ -35,7 +35,7 @@ class SupplierProduct extends Component{
     };
 
     fetchProducts = async (id) => {
-        await axios.get(`${apiUrl}/supplier/get/${id}`)
+        await axios.get(`/api/supplier/get/${id}`)
             .then(res => {
                 this.setState({
                     products : res.data.output[0].products
@@ -44,7 +44,7 @@ class SupplierProduct extends Component{
     };
 
     getSingleProduct = async (id) => {
-       await axios.get(`${apiUrl}/product/get/${id}`)
+       await axios.get(`/api/product/get/${id}`)
             .then(res => {
                 if (res.data.success){
                     console.log(res.data)
@@ -91,7 +91,7 @@ class SupplierProduct extends Component{
     };
 
     sendDelete = (id) =>{
-        axios.delete(`${apiUrl}/product/delete/${id}`)
+        axios.delete(`/api/product/delete/${id}`)
             .then(response => {
                 if (response.data.success) {
                     Swal.fire(
@@ -126,7 +126,7 @@ class SupplierProduct extends Component{
                                       to={`/productDetails/${product.id}`}
                                   >
                                       <img
-                                          src={`${frontendUrl}/images/products/${path}`} alt={product.name} style={{width: "100%",height: "170px"}}
+                                          src={`/images/products/${path}`} alt={product.name} style={{width: "100%",height: "170px"}}
                                       />
                                   </Link>
                               </div>

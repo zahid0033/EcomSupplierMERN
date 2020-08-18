@@ -10,7 +10,7 @@ class Banner extends Component{
     };
 
     componentDidMount() {
-        axios.get(`${apiUrl}/banner`)
+        axios.get(`/api/banner`)
             .then(res => {
                 this.setState({
                     banners : res.data.output
@@ -29,7 +29,7 @@ class Banner extends Component{
                 <div className="carousel slide carousel-fade light_arrow" key={key}>
                         <div className="carousel-inner">
                             <div className="carousel-item active background_bg" >
-                                <img style={{width : "100%", height : "600px"}} src={`${frontendUrl}/images/banner/${path}`} alt=""/>
+                                <img style={{width : "100%", height : "600px"}} src={`/images/banner/${path}`} alt=""/>
                                 <div className="banner_slide_content">
                                     <div className="container">
                                         {/* STRART CONTAINER */}

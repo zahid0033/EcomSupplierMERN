@@ -41,7 +41,7 @@ class SupplierAddOrEditProduct extends Component{
                 subCategoryId : subCategoryId
             })
         }
-        await axios.get(`${apiUrl}/subCategory`)
+        await axios.get(`/api/subCategory`)
                 .then(res => {
                     if(res.data.success){
                         this.setState({
@@ -110,7 +110,7 @@ class SupplierAddOrEditProduct extends Component{
                     dataPost.append('images', this.state.images[x])
                 }
 
-                await axios.post(`${apiUrl}/product/add`,dataPost, {
+                await axios.post(`/api/product/add`,dataPost, {
                     config: { headers: { "Content-Type": "multipart/form-data" } }
                 })
                     .then(response => {
@@ -147,7 +147,7 @@ class SupplierAddOrEditProduct extends Component{
                     dataPost.append('images', this.state.images[x])
                 }
 
-                await axios.post(`${apiUrl}/product/update/${this.props.singleData.id}`,dataPost, {
+                await axios.post(`/api/product/update/${this.props.singleData.id}`,dataPost, {
                     config: { headers: { "Content-Type": "multipart/form-data" } }
                 })
                     .then(response => {

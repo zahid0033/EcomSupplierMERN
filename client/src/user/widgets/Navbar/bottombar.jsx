@@ -97,7 +97,7 @@ class BottomBar extends Component{
     };
 
     fetchCategory = async () => {
-       await axios.get(`${apiUrl}/mainCategory`)
+       await axios.get(`/api/mainCategory`)
             .then(response => {
                 this.setState({
                     category: response.data.output

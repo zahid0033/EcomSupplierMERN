@@ -21,7 +21,7 @@ const EmployeeTemplate = (props) => {
                                 <p><span className="employee_title"><i className="linearicons-tag"></i> Designation :</span> {employee.designation}</p>
                             </div>
                             <div className="col-md-6">
-                                <img className="circle_image" src={`${frontendUrl}/images/employee/${path}`} alt=""/>
+                                <img className="circle_image" src={`/images/employee/${path}`} alt=""/>
                             </div>
                         </div>
                     </CardBody>

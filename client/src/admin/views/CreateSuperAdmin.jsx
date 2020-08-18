@@ -19,7 +19,7 @@ import CreateAdmin from "./CreateAdmin";
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 import axios from "axios";
-import {apiUrl} from "../../config/config";
+
 import authHeader from "../adminServices/authHeader";
 
 class CreateSuperAdmin extends Component{
@@ -44,7 +44,7 @@ class CreateSuperAdmin extends Component{
     }
 
     fetchRoles = async () => {
-        await axios.get(`${apiUrl}/role`)
+        await axios.get(`/api/role`)
             .then(res => {
                 if (res.data.success){
                     this.setState({
@@ -87,7 +87,7 @@ class CreateSuperAdmin extends Component{
         }
         else {
 
-            // const baseUrl = `${apiUrl}/admin/add`;
+            // const baseUrl = `/api/admin/add`;
             const dataPost = new FormData();
             dataPost.set('name' , this.state.name);
             dataPost.set('email' , this.state.email);
@@ -98,7 +98,7 @@ class CreateSuperAdmin extends Component{
             dataPost.set('secretCode' , this.state.secretCode);
             dataPost.append('file' , this.state.file);
 
-            await axios.post(`${apiUrl}/admin/addSuperAdmin`,dataPost, {
+            await axios.post(`/api/admin/addSuperAdmin`,dataPost, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     "x-access-token" : authHeader()

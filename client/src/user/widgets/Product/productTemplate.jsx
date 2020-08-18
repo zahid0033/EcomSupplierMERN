@@ -33,7 +33,7 @@ class ProductTemplate extends Component{
                             to={`/productDetails/${product.id}`}
                         >
                             <img
-                                src={`${frontendUrl}/images/products/${path}`} alt={product.name} style={{height: "270px",width: "100%"}}
+                                src={`/images/products/${path}`} alt={product.name} style={{height: "270px",width: "100%"}}
                             />
                         </Link>
                     </div>

@@ -19,7 +19,7 @@ const config = require('../../config/auth.config');
 //file upload with multer
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './client/public/images/supplier')
+        cb(null, './server/images/supplier')
     },
 
     filename: function (req, file, cb) {

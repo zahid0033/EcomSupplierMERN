@@ -13,7 +13,7 @@ class ProductSlider extends Component {
     };
 
     componentDidMount() {
-        axios.get(`${apiUrl}/product`)
+        axios.get(`/api/product`)
             .then(response => {
                 this.setState({
                     products : response.data.output

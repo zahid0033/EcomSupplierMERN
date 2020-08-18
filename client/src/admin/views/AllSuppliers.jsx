@@ -33,7 +33,7 @@ class AllSuppliers extends Component {
     }
 
     loadSuppliers = async () => {
-        await axios.get(`${apiUrl}/supplier`)
+        await axios.get(`/api/supplier`)
                 .then(res => {
                     if (res.data.success){
                         const list = res.data.output;
@@ -103,7 +103,7 @@ class AllSuppliers extends Component {
     };
 
     sendDelete = async (id) =>{
-        await axios.delete(`${apiUrl}/supplier/delete/${id}`)
+        await axios.delete(`/api/supplier/delete/${id}`)
             .then(response => {
                 if (response.data.success) {
                     Swal.fire(

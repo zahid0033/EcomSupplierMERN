@@ -2,7 +2,7 @@ import React,{Component} from "react";
 import axios from 'axios';
 import PanelHeader from "../components/PanelHeader/PanelHeader";
 import {Card, CardBody, Table} from "reactstrap";
-import {apiUrl} from "../../config/config";
+
 import {tbody, thead} from "../variables/general";
 import {Link} from "react-router-dom";
 import authHeader from "../adminServices/authHeader";
@@ -22,7 +22,7 @@ class ManageProducts extends Component{
     }
 
     loadProducts = async () => {
-        await axios.get(`${apiUrl}/product`)
+        await axios.get(`/api/product`)
             .then(res => {
                 this.setState({
                     products : res.data.output
@@ -41,7 +41,7 @@ class ManageProducts extends Component{
             });
         }
 
-        await axios.post(`${apiUrl}/product/exclusiveUpdate`,{status : this.state.exclusive,id: id},{headers : {"x-access-token" : authHeader()}})
+        await axios.post(`/api/product/exclusiveUpdate`,{status : this.state.exclusive,id: id},{headers : {"x-access-token" : authHeader()}})
             .then(res =>{
                 this.props.handleNotification("tr","Exclusive Successfully Updated");
                 this.loadProducts();
@@ -63,7 +63,7 @@ class ManageProducts extends Component{
             });
         }
 
-        await axios.post(`${apiUrl}/product/featuredUpdate`,{status : this.state.featured,id: id},{headers : {"x-access-token" : authHeader()}})
+        await axios.post(`/api/product/featuredUpdate`,{status : this.state.featured,id: id},{headers : {"x-access-token" : authHeader()}})
             .then(res =>{
                 this.props.handleNotification("tr","Featured Successfully Updated");
                 this.loadProducts();
@@ -98,7 +98,7 @@ class ManageProducts extends Component{
     };
 
     sendDelete = async (id) =>{
-        await axios.delete(`${apiUrl}/product/delete/${id}`)
+        await axios.delete(`/api/product/delete/${id}`)
             .then(response => {
                 if (response.data.success) {
                     Swal.fire(

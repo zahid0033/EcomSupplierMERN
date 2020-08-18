@@ -30,7 +30,7 @@ class ManageAdmins extends Component {
     }
 
     loadAdmins = async () => {
-      await  axios.get(`${apiUrl}/admin`)
+      await  axios.get(`/api/admin`)
                 .then(res => {
                     if (res.data.success){
                         const list = res.data.output;
@@ -48,7 +48,7 @@ class ManageAdmins extends Component {
 
     getSingleAdmin = async (id) => {
         // alert(id);
-      await axios.get(`${apiUrl}/admin/get/${id}`)
+      await axios.get(`/api/admin/get/${id}`)
                 .then(res => {
                     if (res.data.success){
                         this.setState({
@@ -74,7 +74,7 @@ class ManageAdmins extends Component {
                         <td>{admin.name}</td>
                         <td>{admin.email}</td>
                         <td>{admin.role.role}</td>
-                        <td><img style={{width : "50px", height : "50px"}} src={`${frontendUrl}/images/admin/${path}`} alt=""/></td>
+                        <td><img style={{width : "50px", height : "50px"}} src={`/images/admin/${path}`} alt=""/></td>
                         <td>{admin.status}</td>
                         <td>
                             <span className="btn btn-primary mr-2" onClick={() => this.getSingleAdmin(admin.id)}>Edit</span>
@@ -136,7 +136,7 @@ class ManageAdmins extends Component {
     };
 
     sendDelete = async (id) =>{
-      await axios.delete(`${apiUrl}/admin/delete/${id}`)
+      await axios.delete(`/api/admin/delete/${id}`)
             .then(response => {
                 if (response.data.success) {
                     Swal.fire(
