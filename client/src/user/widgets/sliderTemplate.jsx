@@ -32,7 +32,7 @@ const SliderTemplate = (props) => {
                         <div className="product_img">
                             <a href="/#">
                                 <img
-                                    src={`${frontendUrl}/images/products/${path}`}
+                                    src={`/images/products/${path}`}
                                     alt={item.name}
                                     style={{height: "295px"}}
                                 />

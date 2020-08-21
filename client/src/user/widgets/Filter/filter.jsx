@@ -12,7 +12,7 @@ class ProductFilter extends Component{
     };
 
     componentDidMount() {
-        axios.get(`${apiUrl}/mainCategory`)
+        axios.get(`/api/mainCategory`)
             .then(response => {
                 this.setState({
                     mainCategories : response.data.output

@@ -34,7 +34,7 @@ class SupplierEmployee extends Component{
     };
 
     fetchEmployee = async (id) => {
-        await axios.get(`${apiUrl}/supplier/get/${id}`)
+        await axios.get(`/api/supplier/get/${id}`)
             .then(res => {
                 this.setState({
                     employees : res.data.output[0].employees
@@ -43,7 +43,7 @@ class SupplierEmployee extends Component{
     };
 
     getSingleEmployee = (id) => {
-        axios.get(`${apiUrl}/employee/get/${id}`)
+        axios.get(`/api/employee/get/${id}`)
             .then(res => {
                 if (res.data.success){
                     this.setState({
@@ -82,7 +82,7 @@ class SupplierEmployee extends Component{
                                         <p><span className="employee_title"><i className="linearicons-tag"></i> Designation :</span> {employee.designation}</p>
                                     </div>
                                     <div className="col-md-4">
-                                        <img className="circle_image" src={`${frontendUrl}/images/employee/${path}`} alt=""/>
+                                        <img className="circle_image" src={`/images/employee/${path}`} alt=""/>
                                     </div>
                                     <div className="col-md-2">
                                         <ul className="action-list">
@@ -158,7 +158,7 @@ class SupplierEmployee extends Component{
     }
 
     sendDelete = (id) =>{
-        axios.delete(`${apiUrl}/employee/delete/${id}`)
+        axios.delete(`/api/employee/delete/${id}`)
             .then(response => {
                 if (response.data.success) {
                     Swal.fire(

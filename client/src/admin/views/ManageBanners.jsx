@@ -20,7 +20,7 @@ class ManageBanners extends Component{
     }
 
     loadBanners = async () => {
-        await axios.get(`${apiUrl}/banner`)
+        await axios.get(`/api/banner`)
             .then(res => {
                 this.setState({
                     banners : res.data.output
@@ -67,7 +67,7 @@ class ManageBanners extends Component{
     };
 
     sendDelete = async (id) =>{
-      await  axios.delete(`${apiUrl}/banner/delete/${id}`)
+      await  axios.delete(`/api/banner/delete/${id}`)
             .then(response => {
                 if (response.data.success) {
                     Swal.fire(
@@ -93,7 +93,7 @@ class ManageBanners extends Component{
                     <tr key={key}>
                         <td>{key+1}</td>
                         <td>{banner.text}</td>
-                        <td><img style={{width : "50px", height : "50px"}} src={`${frontendUrl}/images/banner/${path}`} alt=""/></td>
+                        <td><img style={{width : "50px", height : "50px"}} src={`/images/banner/${path}`} alt=""/></td>
                         <td><span className="btn btn-danger" onClick={()=> this.onDelete(banner.id)}><i className="now-ui-icons ui-1_simple-remove"></i></span></td>
                     </tr>
                 )
@@ -117,7 +117,7 @@ class ManageBanners extends Component{
         dataPost.set('text' , this.state.text);
         dataPost.append('file' , this.state.file);
 
-        await axios.post(`${apiUrl}/banner/add`,dataPost, {
+        await axios.post(`/api/banner/add`,dataPost, {
             config: { headers: { "Content-Type": "multipart/form-data" } }
         })
             .then(response => {

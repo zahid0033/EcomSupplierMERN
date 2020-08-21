@@ -28,7 +28,7 @@ const ProductTemplateTwo = (props) => {
                 <div className="product_img">
                     <a href="shop-product-detail.html">
                         <img
-                            src={`${frontendUrl}/images/products/${path}`}
+                            src={`/images/products/${path}`}
                             alt={product.name}
                             style={{width: "100%",height: "270px"}}
                         />

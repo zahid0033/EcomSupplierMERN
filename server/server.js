@@ -1,8 +1,10 @@
+/** @format */
 const express = require('express');
 const querystring = require('querystring');
+const path=require("path");
 const bodyParser = require("body-parser");
 const app = express();
-require('dotenv').config();
+require("dotenv").config();
 
 // app.use(express.static(path.join(__dirname, "public")));
 // app.use(express.static(path.join(__dirname, "uploads")));
@@ -44,18 +46,18 @@ db.sequelize.sync();
 app.use(express.json());
 
 // import router
-const userRouter = require('./routes/user');
-const roleRouter = require('./routes/Role/roleRoute');
-const adminRouter = require('./routes/Admin/adminRoute');
-const mainCategoryRouter = require('./routes/Category/main_categoryRoute');
-const subCategoryRouter = require('./routes/Category/sub_categoryRoute');
-const productRouter = require('./routes/Product/productRoute');
-const supplierRouter = require('./routes/Supplier/supplierRoute');
-const employeeRouter = require('./routes/Employee/employeeRoute');
-const bannerRouter = require('./routes/Banner/bannerRoute');
-const advertiseRouter = require('./routes/Advertise/advertiseRoute');
+const userRouter = require("./routes/user");
+const roleRouter = require("./routes/Role/roleRoute");
+const adminRouter = require("./routes/Admin/adminRoute");
+const mainCategoryRouter = require("./routes/Category/main_categoryRoute");
+const subCategoryRouter = require("./routes/Category/sub_categoryRoute");
+const productRouter = require("./routes/Product/productRoute");
+const supplierRouter = require("./routes/Supplier/supplierRoute");
+const employeeRouter = require("./routes/Employee/employeeRoute");
+const bannerRouter = require("./routes/Banner/bannerRoute");
+const advertiseRouter = require("./routes/Advertise/advertiseRoute");
 
-
+app.use("/images", express.static(path.join(__dirname, 'images')));
 //root
 app.get('/',(req,res) => {
     const author = {
@@ -66,29 +68,37 @@ app.get('/',(req,res) => {
 });
 
 //connect with the router through path
-app.use('/users', userRouter); //( just for testing purposes .will delete after finish tehe project.)
-
-app.use('/api/role', roleRouter);
-app.use('/api/admin', adminRouter);
-app.use('/api/mainCategory', mainCategoryRouter);
-app.use('/api/subCategory', subCategoryRouter);
-app.use('/api/product', productRouter);
-app.use('/api/supplier', supplierRouter);
-app.use('/api/employee', employeeRouter);
-app.use('/api/banner', bannerRouter);
-app.use('/api/advertise', advertiseRouter);
+app.use("/users", userRouter); //( just for testing purposes .will delete after finish tehe project.)
+// app.use("/images", express.static("images"));
+app.use("/api/role", roleRouter);
+app.use("/api/admin", adminRouter);
+app.use("/api/mainCategory", mainCategoryRouter);
+app.use("/api/subCategory", subCategoryRouter);
+app.use("/api/product", productRouter);
+app.use("/api/supplier", supplierRouter);
+app.use("/api/employee", employeeRouter);
+app.use("/api/banner", bannerRouter);
+app.use("/api/advertise", advertiseRouter);
 
 //not found url
 app.get('*',(req,res)=>{
     res.status(404).send("404 page not found");
 });
 
-if (process.env.NODE_ENV === 'production'){
-    const path = require('path');
-    app.get('/*',(req,res)=>{
-        res.sendfile(path.resolve(__dirname,'../client','build','index.html'))
-    })
+if (true) {
+    const path = require("path");
+    const root = require("path").join(__dirname, "../client", "build");
+    app.use(express.static(root));
+    app.get("*", (req, res) => {
+        res.sendfile("index.html", { root });
+    });
 }
+// if (process.env.NODE_ENV === 'production'){
+//     const path = require("path");
+//     app.get('/*',(req,res)=>{
+//         res.sendfile(path.resolve(__dirname,'../client','build','index.html'))
+//     })
+// }
 
 //server creation
 const port = process.env.PORT || 8000;

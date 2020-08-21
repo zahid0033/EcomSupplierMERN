@@ -20,7 +20,7 @@ class ManageAdvertise extends Component{
     }
 
     loadAdvertise = async () => {
-        await axios.get(`${apiUrl}/advertise`)
+        await axios.get(`/api/advertise`)
             .then(res => {
                 this.setState({
                     advertises : res.data.output
@@ -67,7 +67,7 @@ class ManageAdvertise extends Component{
     };
 
     sendDelete = async (id) =>{
-        await  axios.delete(`${apiUrl}/advertise/delete/${id}`)
+        await  axios.delete(`/api/advertise/delete/${id}`)
             .then(response => {
                 if (response.data.success) {
                     Swal.fire(
@@ -92,7 +92,7 @@ class ManageAdvertise extends Component{
                 return (
                     <tr key={key}>
                         <td>{key+1}</td>
-                        <td><img style={{width : "50px", height : "50px"}} src={`${frontendUrl}/images/advertise/${path}`} alt=""/></td>
+                        <td><img style={{width : "50px", height : "50px"}} src={`/images/advertise/${path}`} alt=""/></td>
                         <td>{advertise.position}</td>
                         <td><span className="btn btn-danger" onClick={()=> this.onDelete(advertise.id)}><i className="now-ui-icons ui-1_simple-remove"></i></span></td>
                     </tr>
@@ -118,7 +118,7 @@ class ManageAdvertise extends Component{
         dataPost.set('position' , this.state.position);
         dataPost.append('file' , this.state.file);
 
-        await axios.post(`${apiUrl}/advertise/add`,dataPost, {
+        await axios.post(`/api/advertise/add`,dataPost, {
             config: { headers: { "Content-Type": "multipart/form-data" } }
         })
             .then(response => {

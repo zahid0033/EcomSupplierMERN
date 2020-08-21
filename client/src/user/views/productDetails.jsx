@@ -27,7 +27,7 @@ class ProductDetails extends Component{
     }
 
     loadProduct = async (id) => {
-       await axios.get(`${apiUrl}/product/get/${id}`)
+       await axios.get(`/api/product/get/${id}`)
             .then(response => {
                 if (response.data.success){
                     // console.log(response.data.output)
@@ -46,7 +46,7 @@ class ProductDetails extends Component{
         const splitPath = imagePath[0].split("\\");
         const path = splitPath[splitPath.length - 1];
         await this.setState({
-                    zoomProperty : {...this.state.zoomProperty, img :`${frontendUrl}/images/products/${path}`}
+                    zoomProperty : {...this.state.zoomProperty, img :`/images/products/${path}`}
                 })
     };
 
@@ -73,9 +73,9 @@ class ProductDetails extends Component{
                 <div className="item col-md-3" key={key}>
                     <span
                         className="product_gallery_item active"
-                        onClick={()=>this.zoomImageHandler(`${frontendUrl}/images/products/${path}`)}
+                        onClick={()=>this.zoomImageHandler(`/images/products/${path}`)}
                     >
-                        <img style={{width : "60px", height : "60px"}} src={`${frontendUrl}/images/products/${path}`} alt=""/>
+                        <img style={{width : "60px", height : "60px"}} src={`/images/products/${path}`} alt=""/>
                     </span>
                 </div>
             )

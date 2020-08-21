@@ -15,7 +15,7 @@ class ExclusiveProductSlider extends Component{
     }
 
     loadProducts = async () => {
-        await axios.get(`${apiUrl}/product`)
+        await axios.get(`/api/product`)
             .then(response => {
                 this.setState({
                     products : response.data.output

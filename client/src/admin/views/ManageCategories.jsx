@@ -2,7 +2,7 @@ import React,{Component} from "react";
 import {Row, Col, Card, CardHeader, CardTitle, CardBody} from "reactstrap";
 import PanelHeader from "../components/PanelHeader/PanelHeader";
 import axios from "axios";
-import {apiUrl} from "../../config/config";
+
 
 class ManageCategories extends Component{
 
@@ -26,7 +26,7 @@ class ManageCategories extends Component{
     }
 
     fetchCategories = () => {
-        axios.get(`${apiUrl}/mainCategory`)
+        axios.get(`/api/mainCategory`)
             .then(res => {
                 this.setState({
                     mainCategories : res.data.output
@@ -69,7 +69,7 @@ class ManageCategories extends Component{
         mainCatgData.set('icon' , this.state.icon);
         mainCatgData.append('file' , this.state.file);
 
-        await axios.post(`${apiUrl}/mainCategory/add`,mainCatgData, {
+        await axios.post(`/api/mainCategory/add`,mainCatgData, {
             config: { headers: { "Content-Type": "multipart/form-data" } }
         })
             .then(res => {
@@ -85,7 +85,7 @@ class ManageCategories extends Component{
             name : this.state.subCategory,
             mainCatgId : this.state.mainCatgId
         };
-        await axios.post(`${apiUrl}/subCategory/add`,subCatgData)
+        await axios.post(`/api/subCategory/add`,subCatgData)
             .then(res => {
                 this.fetchCategories()
             })

@@ -1,9 +1,9 @@
 import axios from 'axios';
-import {apiUrl} from "../../config/config";
+
 
 class SupplierAuthService {
     supplierSignup (dataPost) {
-        return axios.post(`${apiUrl}/supplier/signup`,dataPost)
+        return axios.post(`/api/supplier/signup`,dataPost)
             .then(response => {
 
                 return response.data;
@@ -11,7 +11,7 @@ class SupplierAuthService {
     }
 
     supplierSignin (dataPost) {
-        return axios.post(`${apiUrl}/supplier/signin`,dataPost)
+        return axios.post(`/api/supplier/signin`,dataPost)
             .then(response => {
                 if (response.data.accessToken) {
                     localStorage.setItem("supplier", JSON.stringify(response.data));

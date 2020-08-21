@@ -15,7 +15,7 @@ class AdminProfile extends Component{
     }
 
     fetchAdmin = async (id) => {
-       await axios.get(`${apiUrl}/admin/get/${id}`)
+       await axios.get(`/api/admin/get/${id}`)
                 .then(res => {
                     this.setState({
                         admin : res.data.output[0]
@@ -28,7 +28,7 @@ class AdminProfile extends Component{
             const splitPath = this.state.admin.image.split("\\");
             const path = splitPath[splitPath.length - 1];
 
-            return (<img className="avatar border-gray" src={`${frontendUrl}/images/admin/${path}`} alt=""/>)
+            return (<img className="avatar border-gray" src={`/images/admin/${path}`} alt=""/>)
         }else{
             return (<span className="avatar border-gray"><i className="users_circle-08"></i></span>)
         }

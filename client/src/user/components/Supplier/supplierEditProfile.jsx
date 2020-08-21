@@ -45,7 +45,7 @@ class SupplierEditProfile extends Component{
             const splitPath = this.props.singleData.image.split("\\");
             const path = splitPath[splitPath.length - 1];
 
-            return (<img style={{width : "50px", height : "50px"}} src={`${frontendUrl}/images/supplier/${path}`} alt=""/>)
+            return (<img style={{width : "50px", height : "50px"}} src={`/images/supplier/${path}`} alt=""/>)
         }else{
             return (<span>No Photo Available</span>)
         }
@@ -65,7 +65,7 @@ class SupplierEditProfile extends Component{
             dataPost.set('country' , this.state.country);
             dataPost.append('image' , this.state.image);
 
-            await axios.post(`${apiUrl}/supplier/update/${this.props.singleData.id}`,dataPost, {
+            await axios.post(`/api/supplier/update/${this.props.singleData.id}`,dataPost, {
                 config: { headers: { "Content-Type": "multipart/form-data" } }
             })
                 .then(response => {

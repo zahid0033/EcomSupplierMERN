@@ -1,6 +1,6 @@
 import React,{Component} from "react";
 import axios from 'axios';
-import {apiUrl} from "../../config/config";
+
 import ProductComponent from "../components/product/product";
 import SearchSupplierList from "../components/Supplier/searchSupplierList";
 import Breadcrumbs from "../widgets/Breadcrumbs/breadcrumbs";
@@ -37,7 +37,7 @@ class SearchProductOrSupplier extends Component{
             searchType : searchType
         });
         if(this.state.searchType === 'product'){
-            await axios.get(`${apiUrl}/product`)
+            await axios.get(`/api/product`)
                 .then(res => {
                     let results = res.data.output.filter(item => item.name.toLowerCase().includes(searchText));
                     this.setState({
@@ -56,7 +56,7 @@ class SearchProductOrSupplier extends Component{
             });
 
         }else{
-            await axios.get(`${apiUrl}/supplier/searchSupplier/${this.state.searchText}`)
+            await axios.get(`/api/supplier/searchSupplier/${this.state.searchText}`)
                 .then(res => {
                     this.setState({
                         suppliers : res.data.output

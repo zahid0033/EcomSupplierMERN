@@ -2,7 +2,7 @@ import React,{Component} from "react";
 import axios from 'axios';
 import ProductComponent from "../components/product/product";
 import Breadcrumbs from "../widgets/Breadcrumbs/breadcrumbs";
-import {apiUrl} from "../../config/config";
+
 
 class CategoryProductsShow extends Component {
     // console.log(props.match.params);
@@ -32,7 +32,7 @@ class CategoryProductsShow extends Component {
 
     fetchProduct = async (id) => {
 
-        await axios.get(`${apiUrl}/product/mainCategoryProducts/get?categoryId=${id}`)
+        await axios.get(`/api/product/mainCategoryProducts/get?categoryId=${id}`)
             .then(response => {
                 this.setState({
                     products: response.data.output
