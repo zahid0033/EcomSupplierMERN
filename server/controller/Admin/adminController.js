@@ -15,7 +15,7 @@ const config = require ('../../config/auth.config');
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './client/public/images/admin')
+        cb(null, './server/images/admin')
     },
     filename: function (req, file, cb) {
         cb(null, Date.now() + '-' +file.originalname.toLowerCase().split(' ').join('-') )

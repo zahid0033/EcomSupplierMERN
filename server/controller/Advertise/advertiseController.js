@@ -7,7 +7,7 @@ const Advertise = db.advertise;
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './client/public/images/advertise')
+        cb(null, './server/images/advertise')
     },
     filename: function (req, file, cb) {
         cb(null, Date.now() + '-' +file.originalname.toLowerCase().split(' ').join('-') )
