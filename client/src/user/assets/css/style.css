@@ -6241,12 +6241,12 @@ select option {
 	float: right;
 	font-size: 14px;
 }
-.sidebar .widget + .widget {
+.sidebars .widget + .widget {
     border-top: 1px solid #ddd;
     margin-top: 30px;
     padding-top: 30px;
 }
-.sb_style1.sidebar .widget {
+.sb_style1.sidebars .widget {
 	background-color: #fff;
 	border: 0 !important;
 	box-shadow: 0 0 10px rgba(0,0,0,0.1);

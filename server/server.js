@@ -59,13 +59,13 @@ const advertiseRouter = require("./routes/Advertise/advertiseRoute");
 
 app.use("/images", express.static(path.join(__dirname, 'images')));
 //root
-app.get('/',(req,res) => {
-    const author = {
-        name : 'Zahid',
-        profession : 'Node js Developer'
-    };
-    res.send(author);
-});
+// app.get('/',(req,res) => {
+//     const author = {
+//         name : 'Zahid',
+//         profession : 'Node js Developer'
+//     };
+//     res.send(author);
+// });
 
 //connect with the router through path
 app.use("/users", userRouter); //( just for testing purposes .will delete after finish tehe project.)
@@ -81,18 +81,22 @@ app.use("/api/banner", bannerRouter);
 app.use("/api/advertise", advertiseRouter);
 
 //not found url
-app.get('*',(req,res)=>{
-    res.status(404).send("404 page not found");
-});
+
 
 if (true) {
-    const path = require("path");
-    const root = require("path").join(__dirname, "../client", "build");
+
+    const root = require("path").join(__dirname, "client", "build");
     app.use(express.static(root));
+    // app.use(express.static("client/build"))
     app.get("*", (req, res) => {
         res.sendfile("index.html", { root });
     });
 }
+
+app.get('*',(req,res)=>{
+    res.status(404).send("404 page not found");
+});
+
 // if (process.env.NODE_ENV === 'production'){
 //     const path = require("path");
 //     app.get('/*',(req,res)=>{
