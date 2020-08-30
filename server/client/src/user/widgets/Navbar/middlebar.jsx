@@ -47,7 +47,7 @@ class MiddleBar extends Component{
                         </a>
                         <div className="contact_phone order-md-last">
                             <i className="linearicons-phone-wave" />
-                            <span>123-456-7689</span>
+                            <span>01709958949</span>
                         </div>
                         <div className="product_search_form">
                             <div>
