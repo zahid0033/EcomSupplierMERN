@@ -49,7 +49,7 @@ const About = () => {
                                     We ensure best supplier with the valid good products. Which will save your money and time. On the other hand
                                     its a big platform for the suppliers who are new to business with quality products.
                                 </p>
-                                
+
                             </div>
                         </div>
                     </div>
