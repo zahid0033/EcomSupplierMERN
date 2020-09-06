@@ -142,7 +142,7 @@ class SupplierEditProfile extends Component{
                         />
                         {this.validator.message('description', this.state.description, 'required|min:10|max:40',{ className: 'text-danger' })}
                     </div>
-                    <div className="form-group">
+                    <div className="">
                         {this.props.singleData.image !== null ? this.renderImage() : ''}
                         <input type="file" className="form-control" name="file" onChange={this.fileSelectHandler}/>
                     </div>

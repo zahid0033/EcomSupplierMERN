@@ -758,7 +758,7 @@ div.banner_large_pad {
 }
 .product_search_form {
 	max-width: 100%;
-	display: none;
+	/*display: none;*/
 	position: absolute;
 	left: 0;
 	right: 0;
@@ -1231,8 +1231,11 @@ footer .widget_title {
 ---------------------------------------------------*/
 @media only screen and (max-width: 575px) {
 .header_wrap .navbar-collapse {
-	left: -15px;
-	right: -15px;
+	/*left: -15px;*/
+	/*right: -15px;*/
+}
+.navbar-brand{
+	display:none
 }
 .btn {
 	padding: 10px 28px;

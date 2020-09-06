@@ -211,7 +211,7 @@ class SupplierAddOrEditProduct extends Component{
                         />
                         {this.validator.message('description', this.state.description, 'required|min:10|max:100',{ className: 'text-danger' })}
                     </div>
-                    <div className="form-group">
+                    <div className="">
                         <label >Upload Photos (Maximum 4 photos)</label>
                         <input type="file" className="form-control" multiple onChange={this.fileSelectHandler}/>
                     </div>
