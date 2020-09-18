@@ -107,6 +107,8 @@ module.exports.forgetPassword = async (req,res) => {
             // create reusable transporter object using the default SMTP transport
             let transporter = nodemailer.createTransport({
                 service: `${process.env.MAIL_SERVICE}`,
+                port: 465,
+                secure: true,
                 auth: {
                     user: `${process.env.MAIL_USER}`, // generated ethereal user
                     pass: `${process.env.MAIL_PASSWORD}`, // generated ethereal password
@@ -119,7 +121,7 @@ module.exports.forgetPassword = async (req,res) => {
                 subject: "From Dadavi", // Subject line
                 text: 'You are receiving this email because you (or someone else) have requested to reset of the password of your account.\n\n'
                 +'Please Click on the following link,or paste this into your browser to complete the process within one hour of receiving it : \n\n'
-                +`http://localhost:3000/resetPassword/${token} \n\n`
+                +`http://dadavi.com/resetPassword/${token} \n\n`
                 +'If you did not request this, Please ignore this email, Your password will remain unchanged. \n', // plain text body
                 // html: "<b>Hello world?</b>", // html body
             };
@@ -241,11 +243,18 @@ module.exports.signUp = async (req,res) => {
         // create reusable transporter object using the default SMTP transport
         let transporter = nodemailer.createTransport({
             service: `${process.env.MAIL_SERVICE}`,
+            port: 465,
+            secure: true,
             auth: {
                 user: `${process.env.MAIL_USER}`, // generated ethereal user
                 pass: `${process.env.MAIL_PASSWORD}`, // generated ethereal password
             },
         });
+
+        console.log("transporter", transporter);
+        console.log("service", process.env.MAIL_SERVICE);
+        console.log("user", process.env.MAIL_USER);
+        console.log("password", process.env.MAIL_PASSWORD);
 
         const mailOptions = {
             from: `${process.env.MAIL_USER}`, // sender address
@@ -253,20 +262,24 @@ module.exports.signUp = async (req,res) => {
             subject: "From Alibaba", // Subject line
             text: 'You are receiving this email because you (or someone else) have requested to reset of the password of your account.\n\n'
                 +'Please Click on the following link,or paste this into your browser to complete the process within one hour of receiving it : \n\n'
-                +`http://localhost:3000/emailVerify/${token} \n\n`
+                +`http://dadavi.com/emailVerify/${token} \n\n`
                 +'If you did not request this, Please ignore this email, Your password will remain unchanged. \n', // plain text body
             // html: "<b>Hello world?</b>", // html body
         };
+        console.log("mailOption", mailOptions);
 
         // send mail with defined transport object
         transporter.sendMail(mailOptions,function (err,response) {
+            console.log("block1");
             if(err){
+                console.log("block2");
                 res.status(500).json({
                     name: "server error",
                     error: err
                 });
                 console.log("mail send error",err)
             }else{
+                console.log("block3");
                 res.status(200).json({
                     success: true,
                     message: "A verification mail has been sent to your email. Please Verify to log in",
@@ -363,6 +376,8 @@ module.exports.sendVerificationToken = async (req,res) => {
             // create reusable transporter object using the default SMTP transport
             let transporter = nodemailer.createTransport({
                 service: `${process.env.MAIL_SERVICE}`,
+                port: 465,
+                secure: true,
                 auth: {
                     user: `${process.env.MAIL_USER}`, // generated ethereal user
                     pass: `${process.env.MAIL_PASSWORD}`, // generated ethereal password
@@ -375,7 +390,7 @@ module.exports.sendVerificationToken = async (req,res) => {
                 subject: "From Alibaba", // Subject line
                 text: 'You are receiving this email because you (or someone else) have requested to reset of the password of your account.\n\n'
                     +'Please Click on the following link,or paste this into your browser to complete the process within one hour of receiving it : \n\n'
-                    +`http://localhost:3000/emailVerify/${token} \n\n`
+                    +`http://dadavi.com/emailVerify/${token} \n\n`
                     +'If you did not request this, Please ignore this email, Your password will remain unchanged. \n', // plain text body
                 // html: "<b>Hello world?</b>", // html body
             };
