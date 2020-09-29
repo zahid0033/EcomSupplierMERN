@@ -44,7 +44,7 @@ class ViewProductsDetails extends Component{
     productImages = () => {
         const imagePath = JSON.parse(this.state.product.images);
         return imagePath.map((image,key) => {
-            const splitPath = image.split("/");
+            const splitPath = image.split("\\");
             const path = splitPath[splitPath.length - 1];
             return (
                 <div className="item col-md-3" key={key}>

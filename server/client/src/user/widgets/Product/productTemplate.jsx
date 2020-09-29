@@ -9,7 +9,7 @@ class ProductTemplate extends Component{
         let description  = parse(product.description);
 
         const imagePath = JSON.parse(product.images);
-        const splitPath = imagePath[0].split("/");
+        const splitPath = imagePath[0].split("\\");
         const path = splitPath[splitPath.length - 1];
 
         return (

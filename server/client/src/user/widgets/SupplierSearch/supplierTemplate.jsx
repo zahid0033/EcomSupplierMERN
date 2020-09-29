@@ -8,7 +8,7 @@ const SupplierTemplate = (props) => {
 
     const renderSupplierImage = () => {
         if(props.supplier.image !== null){
-            const splitPath = props.supplier.image.split("/");
+            const splitPath = props.supplier.image.split("\\");
             const path = splitPath[splitPath.length - 1];
 
             return (<img style={{width : "100%", height : "150px", borderRadius : "100%"}} src={`/images/supplier/${path}`} alt=""/>)
@@ -20,7 +20,7 @@ const SupplierTemplate = (props) => {
     const renderProducts = () => {
                 return props.supplier.products.map((product,key) => {
                     const imagePath = JSON.parse(product.images);
-                    const splitPath = imagePath[0].split("/");
+                    const splitPath = imagePath[0].split("\\");
                     const path = splitPath[splitPath.length - 1];
 
                     return (

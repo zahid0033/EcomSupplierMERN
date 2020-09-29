@@ -43,7 +43,7 @@ class ProductDetails extends Component{
             });
 
         const imagePath = JSON.parse(this.state.product.images);
-        const splitPath = imagePath[0].split("/");
+        const splitPath = imagePath[0].split("\\");
         const path = splitPath[splitPath.length - 1];
         await this.setState({
                     zoomProperty : {...this.state.zoomProperty, img :`/images/products/${path}`}
@@ -67,7 +67,7 @@ class ProductDetails extends Component{
     productImages = () => {
         const imagePath = JSON.parse(this.state.product.images);
         return imagePath.map((image,key) => {
-            const splitPath = image.split("/");
+            const splitPath = image.split("\\");
             const path = splitPath[splitPath.length - 1];
             return (
                 <div className="item col-md-3" key={key}>

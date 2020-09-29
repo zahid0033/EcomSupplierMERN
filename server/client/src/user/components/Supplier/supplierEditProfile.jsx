@@ -42,7 +42,7 @@ class SupplierEditProfile extends Component{
 
     renderImage = () => {
         if(this.props.singleData.image !== null){
-            const splitPath = this.props.singleData.image.split("/");
+            const splitPath = this.props.singleData.image.split("\\");
             const path = splitPath[splitPath.length - 1];
 
             return (<img style={{width : "50px", height : "50px"}} src={`/images/supplier/${path}`} alt=""/>)

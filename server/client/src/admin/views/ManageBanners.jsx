@@ -86,7 +86,7 @@ class ManageBanners extends Component{
     renderBanners = () => {
         return this.state.banners.map((banner,key) => {
             if (banner.image !== null){
-                const splitPath = banner.image.split("/");
+                const splitPath = banner.image.split("\\");
                 const path = splitPath[splitPath.length - 1];
 
                 return (
