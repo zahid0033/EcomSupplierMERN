@@ -6,7 +6,7 @@ const ProductTemplateTwo = (props) => {
     const product = props.product;
 
     const imagePath = JSON.parse(product.images);
-    const splitPath = imagePath[0].split("\\");
+    const splitPath = imagePath[0].split("/");
     const path = splitPath[splitPath.length - 1];
 
     return (

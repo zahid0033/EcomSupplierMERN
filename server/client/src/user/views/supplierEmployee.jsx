@@ -69,7 +69,7 @@ class SupplierEmployee extends Component{
         else{
             return this.state.employees.map((employee,key)=>{
                 if(employee.image !== null){
-                    const splitPath = employee.image.split("\\");
+                    const splitPath = employee.image.split("/");
                     const path = splitPath[splitPath.length - 1];
                     return (
                         <Card className="mb-3" key={key}>

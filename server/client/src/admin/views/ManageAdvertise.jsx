@@ -86,7 +86,7 @@ class ManageAdvertise extends Component{
     renderAdvertise = () => {
         return this.state.advertises.map((advertise,key) => {
             if (advertise.image !== null){
-                const splitPath = advertise.image.split("\\");
+                const splitPath = advertise.image.split("/");
                 const path = splitPath[splitPath.length - 1];
 
                 return (

@@ -32,7 +32,7 @@ class Home extends Component {
     afterLatestProductBanner = () => {
        return this.state.advertises.map((advertise,key) => {
            if (advertise.position === "after-latest-products"){
-               const splitPath = advertise.image.split("\\");
+               const splitPath = advertise.image.split("/");
                const path = splitPath[splitPath.length - 1];
                return (
                    <div className="col-md-12 mt-2" key={key}>
@@ -52,7 +52,7 @@ class Home extends Component {
             return advertise.position.includes("after-exclusive-products")
         });
         return addvert.map((advertise,key) => {
-            const splitPath = advertise.image.split("\\");
+            const splitPath = advertise.image.split("/");
             const path = splitPath[splitPath.length - 1];
             return (
                 <div className="col-md-4">
@@ -69,7 +69,7 @@ class Home extends Component {
     afterFeaturedProductBanner = () => {
         return this.state.advertises.map((advertise,key) => {
             if (advertise.position === "after-featured-products"){
-                const splitPath = advertise.image.split("\\");
+                const splitPath = advertise.image.split("/");
                 const path = splitPath[splitPath.length - 1];
                 return (
                     <div className="col-md-12 mt-2" key={key}>

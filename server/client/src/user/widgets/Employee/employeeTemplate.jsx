@@ -6,7 +6,7 @@ const EmployeeTemplate = (props) => {
     const employee = props.employee;
 
     if (employee.image){
-        const splitPath = employee.image.split("\\");
+        const splitPath = employee.image.split("/");
         const path = splitPath[splitPath.length - 1];
 
         return (

@@ -25,7 +25,7 @@ class AdminProfile extends Component{
 
     renderImage = () => {
         if(this.state.admin.image !== null){
-            const splitPath = this.state.admin.image.split("\\");
+            const splitPath = this.state.admin.image.split("/");
             const path = splitPath[splitPath.length - 1];
 
             return (<img className="avatar border-gray" src={`/images/admin/${path}`} alt=""/>)

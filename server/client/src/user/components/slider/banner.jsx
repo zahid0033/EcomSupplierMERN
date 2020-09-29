@@ -23,7 +23,7 @@ class Banner extends Component{
 
     renderBanners = () => {
         return this.state.banners.map((banner,key) => {
-            const splitPath = banner.image.split("\\");
+            const splitPath = banner.image.split("/");
             const path = splitPath[splitPath.length - 1];
             return (
                 <div className="carousel slide carousel-fade light_arrow" key={key}>

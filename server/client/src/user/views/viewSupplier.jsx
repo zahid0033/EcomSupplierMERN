@@ -80,7 +80,7 @@ class ViewSupplier extends Component{
     renderSupplierImage = () => {
         if(this.state.supplier.image !== null){
             console.log("image",this.state.supplier);
-            const splitPath = this.state.supplier.image.split("\\");
+            const splitPath = this.state.supplier.image.split("/");
             const path = splitPath[splitPath.length - 1];
 
             return (<img className="circle_image" src={`/images/supplier/${path}`} alt=""/>)

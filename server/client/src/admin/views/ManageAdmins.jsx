@@ -65,7 +65,7 @@ class ManageAdmins extends Component {
     fillAdminData = () => {
         return this.state.adminList.map( (admin,key) => {
             if (admin.image !== null){
-                const splitPath = admin.image.split("\\");
+                const splitPath = admin.image.split("/");
                 const path = splitPath[splitPath.length - 1];
 
                 return (

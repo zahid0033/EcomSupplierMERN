@@ -24,7 +24,7 @@ const SliderTemplate = (props) => {
     };
     const template = props.data.map( (item,key) => {
         const imagePath = JSON.parse(item.images);
-        const splitPath = imagePath[0].split("\\");
+        const splitPath = imagePath[0].split("/");
         const path = splitPath[splitPath.length - 1];
         return (
                 <div className="item" key={key}>
