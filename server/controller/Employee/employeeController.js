@@ -9,7 +9,7 @@ const Supplier = db.supplier;
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './server/images/employee')
+        cb(null, path.join(__dirname,'../../images/employee'));
     },
 
     filename: function (req, file, cb) {

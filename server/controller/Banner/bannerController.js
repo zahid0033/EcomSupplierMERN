@@ -1,13 +1,14 @@
 //db import
 const db = require("../../models");
 var multer = require('multer');
+const path = require('path');
 //file system
 var fs = require('fs');
 const Banner = db.banner;
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './server/images/banner')
+        cb(null, path.join(__dirname,'../../images/banner'));
     },
     filename: function (req, file, cb) {
         cb(null, Date.now() + '-' +file.originalname.toLowerCase().split(' ').join('-') )

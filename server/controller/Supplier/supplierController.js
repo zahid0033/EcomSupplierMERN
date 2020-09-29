@@ -1,6 +1,7 @@
 //db import
 const db = require("../../models");
 const Op = db.Sequelize.Op;
+const path = require('path');
 //file system
 var fs = require('fs');
 var nodemailer = require('nodemailer');
@@ -19,7 +20,9 @@ const config = require('../../config/auth.config');
 //file upload with multer
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './server/images/supplier')
+        // cb(null, './server/images/supplier')
+        cb(null, path.join(__dirname,'../../images/supplier'));
+        console.log("dirname",path.join(__dirname,'../../images/supplier'))
     },
 
     filename: function (req, file, cb) {
@@ -121,7 +124,7 @@ module.exports.forgetPassword = async (req,res) => {
                 subject: "From Dadavi", // Subject line
                 text: 'You are receiving this email because you (or someone else) have requested to reset of the password of your account.\n\n'
                 +'Please Click on the following link,or paste this into your browser to complete the process within one hour of receiving it : \n\n'
-                +`http://dadavi.com/resetPassword/${token} \n\n`
+                +`https://dadavi.com/resetPassword/${token} \n\n`
                 +'If you did not request this, Please ignore this email, Your password will remain unchanged. \n', // plain text body
                 // html: "<b>Hello world?</b>", // html body
             };
@@ -251,18 +254,13 @@ module.exports.signUp = async (req,res) => {
             },
         });
 
-        console.log("transporter", transporter);
-        console.log("service", process.env.MAIL_SERVICE);
-        console.log("user", process.env.MAIL_USER);
-        console.log("password", process.env.MAIL_PASSWORD);
-
         const mailOptions = {
             from: `${process.env.MAIL_USER}`, // sender address
             to: `${email}`, // list of receivers
             subject: "From Alibaba", // Subject line
             text: 'You are receiving this email because you (or someone else) have requested to reset of the password of your account.\n\n'
                 +'Please Click on the following link,or paste this into your browser to complete the process within one hour of receiving it : \n\n'
-                +`http://dadavi.com/emailVerify/${token} \n\n`
+                +`https://dadavi.com/emailVerify/${token} \n\n`
                 +'If you did not request this, Please ignore this email, Your password will remain unchanged. \n', // plain text body
             // html: "<b>Hello world?</b>", // html body
         };

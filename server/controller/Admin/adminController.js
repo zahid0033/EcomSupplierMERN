@@ -1,6 +1,7 @@
 //db import
 const db = require("../../models");
 var multer = require('multer');
+const path = require('path');
 //file system
 var fs = require('fs');
 //database table
@@ -15,7 +16,7 @@ const config = require ('../../config/auth.config');
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './server/images/admin')
+        cb(null, path.join(__dirname,'../../images/admin'));
     },
     filename: function (req, file, cb) {
         cb(null, Date.now() + '-' +file.originalname.toLowerCase().split(' ').join('-') )

@@ -1,6 +1,7 @@
 //db import
 const db = require("../../models");
 var multer = require('multer');
+const path = require('path');
 //file system
 var fs = require('fs');
 const Product = db.product;
@@ -9,7 +10,7 @@ const Supplier = db.supplier;
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './server/images/products')
+        cb(null, path.join(__dirname,'../../images/products'));
     },
     filename: function (req, file, cb) {
         cb(null,Date.now() + '-' +file.originalname.toLowerCase().split(' ').join('-') )
