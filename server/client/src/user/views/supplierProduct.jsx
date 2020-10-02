@@ -112,6 +112,7 @@ class SupplierProduct extends Component{
           let description  = parse(product.description);
 
           const imagePath = JSON.parse(product.images);
+          console.log("imagepath",imagePath)
           const splitPath = imagePath[0].split("\\");
           const path = splitPath[splitPath.length - 1];
 
