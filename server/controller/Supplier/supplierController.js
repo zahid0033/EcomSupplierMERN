@@ -257,14 +257,13 @@ module.exports.signUp = async (req,res) => {
         const mailOptions = {
             from: `${process.env.MAIL_USER}`, // sender address
             to: `${email}`, // list of receivers
-            subject: "From Alibaba", // Subject line
-            text: 'You are receiving this email because you (or someone else) have requested to reset of the password of your account.\n\n'
+            subject: "From Dadavi", // Subject line
+            text: 'To verify your email.\n\n'
                 +'Please Click on the following link,or paste this into your browser to complete the process within one hour of receiving it : \n\n'
                 +`https://dadavi.com/emailVerify/${token} \n\n`
-                +'If you did not request this, Please ignore this email, Your password will remain unchanged. \n', // plain text body
+                +'If you did not attempt to sign up in dadavi, Then please ignore this email \n', // plain text body
             // html: "<b>Hello world?</b>", // html body
         };
-        console.log("mailOption", mailOptions);
 
         // send mail with defined transport object
         transporter.sendMail(mailOptions,function (err,response) {

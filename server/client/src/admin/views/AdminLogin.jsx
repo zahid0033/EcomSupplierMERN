@@ -71,7 +71,7 @@ class AdminLogin extends Component {
                                         <Row>
                                             <Col className="pl-5 pr-5" md="12">
                                                 <FormGroup>
-                                                    <label>First Name</label>
+                                                    <label>Email</label>
                                                     <Input
                                                         placeholder="Email"
                                                         name="email"
@@ -83,7 +83,7 @@ class AdminLogin extends Component {
                                             </Col>
                                             <Col className="pl-5 pr-5" md="12">
                                                 <FormGroup>
-                                                    <label>Last Name</label>
+                                                    <label>Password</label>
                                                     <Input
                                                         placeholder="Password"
                                                         name="password"
