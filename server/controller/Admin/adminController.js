@@ -19,7 +19,8 @@ var storage = multer.diskStorage({
         cb(null, path.join(__dirname,'../../images/admin'));
     },
     filename: function (req, file, cb) {
-        cb(null, Date.now() + '-' +file.originalname.toLowerCase().split(' ').join('-') )
+        // cb(null, Date.now() + '-' +file.originalname.toLowerCase().split(' ').join('-') )
+        cb(null, Date.now()+path.extname(file.originalname) )
         // cb(null, Date.now()+'1' )
     }
 });
