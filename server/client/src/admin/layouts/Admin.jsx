@@ -15,103 +15,99 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React from 'react'
 // javascript plugin used to create scrollbars on windows
-import PerfectScrollbar from "perfect-scrollbar";
+import PerfectScrollbar from 'perfect-scrollbar'
 
 // reactstrap components
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch, Redirect } from 'react-router-dom'
 
 // core components
-import DemoNavbar from "../components/Navbars/DemoNavbar.jsx";
-import Footer from "../components/Footer/Footer.jsx";
-import Sidebar from "../components/Sidebar/Sidebar.jsx";
-import FixedPlugin from "../components/FixedPlugin/FixedPlugin.jsx";
-import NotificationAlert from "react-notification-alert";
+import DemoNavbar from '../components/Navbars/DemoNavbar.jsx'
+import Footer from '../components/Footer/Footer.jsx'
+import Sidebar from '../components/Sidebar/Sidebar.jsx'
+import FixedPlugin from '../components/FixedPlugin/FixedPlugin.jsx'
+import NotificationAlert from 'react-notification-alert'
 
-import routes from "../../routes.js";
+import routes from '../../routes.js'
 
-var ps;
+var ps
 
 class Dashboard extends React.Component {
   state = {
-    backgroundColor: "blue"
-  };
-  mainPanel = React.createRef();
+    backgroundColor: 'blue',
+  }
+  mainPanel = React.createRef()
   componentDidMount() {
-    if (navigator.platform.indexOf("Win") > -1) {
-      ps = new PerfectScrollbar(this.mainPanel.current);
-      document.body.classList.toggle("perfect-scrollbar-on");
+    if (navigator.platform.indexOf('Win') > -1) {
+      ps = new PerfectScrollbar(this.mainPanel.current)
+      document.body.classList.toggle('perfect-scrollbar-on')
     }
   }
   componentWillUnmount() {
-    if (navigator.platform.indexOf("Win") > -1) {
-      ps.destroy();
-      document.body.classList.toggle("perfect-scrollbar-on");
+    if (navigator.platform.indexOf('Win') > -1) {
+      ps.destroy()
+      document.body.classList.toggle('perfect-scrollbar-on')
     }
   }
   componentDidUpdate(e) {
-    if (e.history.action === "PUSH") {
-      this.mainPanel.current.scrollTop = 0;
-      document.scrollingElement.scrollTop = 0;
+    if (e.history.action === 'PUSH') {
+      this.mainPanel.current.scrollTop = 0
+      document.scrollingElement.scrollTop = 0
     }
   }
-  handleColorClick = color => {
-    this.setState({ backgroundColor: color });
-  };
-  customNotify = (place,message) => {
-    var color = Math.floor(Math.random() * 5 + 1);
-    var type;
+  handleColorClick = (color) => {
+    this.setState({ backgroundColor: color })
+  }
+  customNotify = (place, message) => {
+    var color = Math.floor(Math.random() * 5 + 1)
+    var type
     switch (color) {
       case 1:
-        type = "primary";
-        break;
+        type = 'primary'
+        break
       case 2:
-        type = "success";
-        break;
+        type = 'success'
+        break
       case 3:
-        type = "danger";
-        break;
+        type = 'danger'
+        break
       case 4:
-        type = "warning";
-        break;
+        type = 'warning'
+        break
       case 5:
-        type = "info";
-        break;
+        type = 'info'
+        break
       default:
-        break;
+        break
     }
-    var options = {};
+    var options = {}
     options = {
       place: place,
-      message: (
-          <div>
-            {message}
-          </div>
-      ),
+      message: <div>{message}</div>,
       type: type,
-      icon: "now-ui-icons ui-1_bell-53",
-      autoDismiss: 7
-    };
-    this.refs.notificationAlert.notificationAlert(options);
-  };
+      icon: 'now-ui-icons ui-1_bell-53',
+      autoDismiss: 7,
+    }
+    this.refs.notificationAlert.notificationAlert(options)
+  }
   render() {
-    if (this.props.match.path === "/admin"){
+    if (this.props.match.path === '/admin') {
       //css
-      require( "bootstrap/dist/css/bootstrap.css");
-      require( "../assets/scss/now-ui-dashboard.scss?v1.2.0");
-      require( "../assets/css/demo.css");
-      require( "../assets/css/custom.css");
+      require('bootstrap/dist/css/bootstrap.css')
+      require('../assets/scss/now-ui-dashboard.scss?v1.2.0')
+      require('../assets/css/demo.css')
+      require('../assets/css/custom.css')
     }
     return (
-      <div className="wrapper">
-        <NotificationAlert ref="notificationAlert" />
+      <div className='wrapper'>
+        <NotificationAlert ref='notificationAlert' />
         <Sidebar
           {...this.props}
           routes={routes}
           backgroundColor={this.state.backgroundColor}
         />
-        <div className="main-panel" ref={this.mainPanel}>
+        <div className='main-panel' ref={this.mainPanel}>
           <DemoNavbar {...this.props} />
           <Switch>
             {routes.map((prop, key) => {
@@ -121,19 +117,19 @@ class Dashboard extends React.Component {
                 //   component={prop.component}
                 //   key={key}
                 // />
-                  <Route
-                    path={prop.layout + prop.path}
-                    render={props => (
-                        <prop.component
-                            {...props}
-                            handleNotification={this.customNotify}
-                        />
-                    )}
-                    key={key}
-                  />
-              );
+                <Route
+                  path={prop.layout + prop.path}
+                  render={(props) => (
+                    <prop.component
+                      {...props}
+                      handleNotification={this.customNotify}
+                    />
+                  )}
+                  key={key}
+                />
+              )
             })}
-            <Redirect from="/admin" to="/admin/dashboard" />
+            <Redirect from='/admin' to='/admin/dashboard' />
           </Switch>
           {/*<Footer fluid />*/}
         </div>
@@ -142,8 +138,8 @@ class Dashboard extends React.Component {
         {/*  handleColorClick={this.handleColorClick}*/}
         {/*/>*/}
       </div>
-    );
+    )
   }
 }
 
-export default Dashboard;
+export default Dashboard

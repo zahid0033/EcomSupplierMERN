@@ -16,6 +16,7 @@ import {tbody} from "../variables/general";
 import {Link} from "react-router-dom";
 
 import authHeader from "../adminServices/authHeader";
+import img1 from "../../user/assets/images/product_img1.jpg";
 
 class ViewSupplierDetails extends Component {
     state = {
@@ -88,6 +89,17 @@ class ViewSupplierDetails extends Component {
         this.setState({
             statusEdit : !this.state.statusEdit
         })
+    };
+
+    renderImage = () => {
+        if(this.state.supplier.image !== null){
+            const splitPath = this.state.supplier.image.split("/");
+            const path = splitPath[splitPath.length - 1];
+
+            return (<img className="circle_image" src={`/images/supplier/${path}`} alt=""/>)
+        }else{
+            return (<img className="circle_image" src={img1} alt=""/>)
+        }
     };
 
     sendSave = async () => {
@@ -213,11 +225,7 @@ class ViewSupplierDetails extends Component {
 
                                             </Col>
                                             <Col md="4">
-                                                <img
-                                                    alt=".."
-                                                    className="supplier_img border-gray"
-                                                    src={require("../assets/img/mike.jpg")}
-                                                />
+                                                {this.renderImage()}
                                             </Col>
                                         </Row>
                                         <Row>

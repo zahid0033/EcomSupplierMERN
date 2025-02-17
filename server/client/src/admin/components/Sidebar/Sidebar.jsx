@@ -128,11 +128,11 @@ class Sidebar extends React.Component {
             </div>
           </a>
           <a
-            href="https://www.creative-tim.com?ref=nudr-sidebar"
+            href="https://www.dadavi.com/"
             className="simple-text logo-normal"
             target="_blank"
           >
-            Alibaba
+            DADAVI
           </a>
         </div>
         <div className="sidebar-wrapper" ref="sidebar">
